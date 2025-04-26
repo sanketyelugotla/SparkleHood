@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, ReactNode, Children, isValidElement } from "react";
+import { useState, useRef, useEffect, ReactNode, Children } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CustomSelectProps<T extends string> {
@@ -15,9 +15,18 @@ interface OptionProps {
     children: ReactNode;
 }
 
-const isOptionElement = (child: ReactNode): child is React.ReactElement<OptionProps> => {
-    return isValidElement(child) && typeof child.props.value === 'string';
-};
+// Type guard to check if child is a valid option element
+function isOptionElement(child: ReactNode): child is React.ReactElement<OptionProps> {
+    return (
+        child !== null &&
+        typeof child === "object" &&
+        "props" in child &&
+        typeof child.props != 'undefined' &&
+        child.props != null &&
+        child.props.hasOwnProperty("value")
+        // typeof child.props.value === "string"
+    );
+}
 
 export function CustomSelect<T extends string>({
     value,
@@ -33,7 +42,7 @@ export function CustomSelect<T extends string>({
     // Get the selected option's label
     const selectedLabel = Children.toArray(children)
         .filter(isOptionElement)
-        .find(child => child.props.value === value)?.props.children;
+        .find((child) => child.props.value === value)?.props.children;
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -56,7 +65,7 @@ export function CustomSelect<T extends string>({
                 </label>
             )}
 
-            {/* Custom select button that triggers the dropdown */}
+            {/* Custom select button */}
             <button
                 type="button"
                 id={id}
@@ -90,16 +99,14 @@ export function CustomSelect<T extends string>({
                         transition={{ duration: 0.15 }}
                         className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md py-1 border border-gray-200 max-h-60 overflow-auto focus:outline-none"
                         role="listbox"
-                        style={{
-                            transformOrigin: 'top center'
-                        }}
+                        style={{ transformOrigin: "top center" }}
                     >
                         {Children.map(children, (child) => {
                             if (isOptionElement(child)) {
                                 return (
                                     <li
                                         key={child.props.value}
-                                        className={`text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-50 ${value === child.props.value ? 'bg-indigo-100' : ''
+                                        className={`text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-50 ${value === child.props.value ? "bg-indigo-100" : ""
                                             }`}
                                         role="option"
                                         onClick={() => {
@@ -124,7 +131,7 @@ export function CustomSelect<T extends string>({
                 )}
             </AnimatePresence>
 
-            {/* Hidden native select for form submission */}
+            {/* Hidden native select */}
             <select
                 id={`${id}-native`}
                 value={value}
