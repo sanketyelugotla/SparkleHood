@@ -22,11 +22,11 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
         >
             <div className="flex justify-between items-start gap-3">
                 <div className="flex-1 min-w-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+                    <div className="flex flex-wrap items-center gap-2">
                         <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                             {incident.title}
                         </h3>
-                        <span className={`mt-1 sm:mt-0 px-2 py-0.5 text-xs font-medium rounded-full ${severityColors[incident.severity]} whitespace-nowrap`}>
+                        <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${severityColors[incident.severity]} whitespace-nowrap`}>
                             {incident.severity}
                         </span>
                     </div>
@@ -43,12 +43,13 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
                         })}
                     </div>
                 </div>
-                <button
+                <motion.button
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => onToggleExpand(incident.id)}
                     className="flex-shrink-0 inline-flex items-center px-2 sm:px-3 py-1 border border-transparent text-xs sm:text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     {incident.expanded ? "Hide" : "Details"}
-                </button>
+                </motion.button>
             </div>
             <AnimatePresence>
                 {incident.expanded && (

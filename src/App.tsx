@@ -4,7 +4,7 @@ import { mockIncidents } from "./data/mockData";
 import IncidentFilter from "./components/IncidentFilter";
 import IncidentList from "./components/IncidentList";
 import IncidentForm from "./components/IncidentForm";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function App() {
 	const [incidents, setIncidents] = useState<Incident[]>(mockIncidents);
@@ -99,14 +99,15 @@ export default function App() {
 										</span>
 									)}
 								</h2>
-								<button
+								<motion.button
 									onClick={() => setShowForm(!showForm)}
-									className="lg:hidden flex items-center justify-center p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-colors"
+									whileTap={{ scale: 0.95 }}
+									className="lg:hidden flex items-center justify-center p-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md"
 								>
 									<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
 									</svg>
-								</button>
+								</motion.button>
 							</div>
 							<IncidentList
 								incidents={filteredSortedIncidents}
@@ -115,9 +116,19 @@ export default function App() {
 						</div>
 					</div>
 
-					<div className={`lg:col-span-1 ${showForm ? 'block' : 'hidden lg:block'}`}>
-						<IncidentForm onSubmit={handleSubmit} onCancel={() => setShowForm(false)} />
-					</div>
+					<AnimatePresence>
+						{(showForm || window.innerWidth >= 1024) && (
+							<motion.div
+								initial={{ opacity: 0, x: 20 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: 20 }}
+								transition={{ type: "spring", stiffness: 300, damping: 30 }}
+								className="lg:col-span-1"
+							>
+								<IncidentForm onSubmit={handleSubmit} onCancel={() => setShowForm(false)} />
+							</motion.div>
+						)}
+					</AnimatePresence>
 				</div>
 			</div>
 		</div>
