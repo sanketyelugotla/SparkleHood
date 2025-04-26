@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useRef, useEffect, ReactNode, isValidElement, Children } from "react";
+import { useState, useRef, useEffect, ReactNode, Children, isValidElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface CustomSelectProps<T extends string> {
@@ -10,6 +9,15 @@ interface CustomSelectProps<T extends string> {
     children: ReactNode;
     className?: string;
 }
+
+interface OptionProps {
+    value: string;
+    children: ReactNode;
+}
+
+const isOptionElement = (child: ReactNode): child is React.ReactElement<OptionProps> => {
+    return isValidElement(child) && typeof child.props.value === 'string';
+};
 
 export function CustomSelect<T extends string>({
     value,
@@ -24,10 +32,8 @@ export function CustomSelect<T extends string>({
 
     // Get the selected option's label
     const selectedLabel = Children.toArray(children)
-        .filter((child): child is React.ReactElement =>
-            isValidElement(child) && child.props.value === value
-        )
-        .map(child => child.props.children)[0];
+        .filter(isOptionElement)
+        .find(child => child.props.value === value)?.props.children;
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -89,7 +95,7 @@ export function CustomSelect<T extends string>({
                         }}
                     >
                         {Children.map(children, (child) => {
-                            if (isValidElement(child) && child.type === 'option') {
+                            if (isOptionElement(child)) {
                                 return (
                                     <li
                                         key={child.props.value}
