@@ -161,39 +161,58 @@ export default function App() {
 				{/* Mobile Form Overlay */}
 				<AnimatePresence>
 					{showForm && (
-						<motion.div
-							className="fixed inset-0 z-50 bg-white lg:hidden"
-							initial={{
-								clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
-								opacity: 0
-							}}
-							animate={{
-								clipPath: "circle(150% at 50% 50%)",
-								opacity: 1,
-								transition: {
-									duration: 0.5,
-									ease: [0.33, 1, 0.68, 1]
-								}
-							}}
-							exit={{
-								clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
-								opacity: 0,
-								transition: {
-									duration: 0.3,
-									ease: [0.33, 1, 0.68, 1]
-								}
-							}}
-						>
-							<div className="absolute inset-0 p-4 overflow-y-auto">
-								<IncidentForm
-									onSubmit={(title, desc, severity) => {
-										handleSubmit(title, desc, severity);
-										handleCloseForm();
-									}}
-									onCancel={handleCloseForm}
-								/>
-							</div>
-						</motion.div>
+						<>
+							{/* Backdrop */}
+							<motion.div
+								className="fixed inset-0 bg-black/30 z-40 lg:hidden"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0.3 }}
+							/>
+
+							{/* Animated Form Container */}
+							<motion.div
+								className="fixed inset-0 z-50 lg:hidden flex items-center justify-center p-4"
+								initial={{
+									clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
+									opacity: 0,
+									scale: 0.5
+								}}
+								animate={{
+									clipPath: "circle(150% at 50% 50%)",
+									opacity: 1,
+									scale: 1,
+									transition: {
+										duration: 0.6,
+										ease: [0.22, 1, 0.36, 1],
+										clipPath: {
+											duration: 0.8,
+											ease: [0.22, 1, 0.36, 1]
+										}
+									}
+								}}
+								exit={{
+									clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
+									opacity: 0,
+									scale: 0.8,
+									transition: {
+										duration: 0.4,
+										ease: [0.22, 1, 0.36, 1]
+									}
+								}}
+							>
+								<div className="bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+									<IncidentForm
+										onSubmit={(title, desc, severity) => {
+											handleSubmit(title, desc, severity);
+											handleCloseForm();
+										}}
+										onCancel={handleCloseForm}
+									/>
+								</div>
+							</motion.div>
+						</>
 					)}
 				</AnimatePresence>
 			</div>
