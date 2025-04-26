@@ -12,7 +12,7 @@ interface IncidentFormProps {
 export default function IncidentForm({
     onSubmit,
     onCancel,
-    showCloseButton = true
+    // showCloseButton = true
 }: IncidentFormProps) {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -34,13 +34,13 @@ export default function IncidentForm({
     };
 
     return (
-        <div className="h-full">
+        <div className={`rounded-xl ${onCancel ? 'h-full' : ''}`}>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className="h-full flex flex-col"
+                className={`bg-white ${onCancel ? 'h-full' : 'rounded-xl shadow-sm border border-gray-200 relative'}`}
             >
                 {/* {showCloseButton && onCancel && (
                     <motion.button
@@ -54,7 +54,7 @@ export default function IncidentForm({
                     </motion.button>
                 )} */}
 
-                <div className="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600">
+                <div className="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-t-xl">
                     <h3 className="text-lg font-semibold text-white flex items-center">
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -63,23 +63,22 @@ export default function IncidentForm({
                     </h3>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 flex-grow flex flex-col">
-                    <div>
-                        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-                            Title*
-                        </label>
-                        <input
-                            id="title"
-                            type="text"
-                            placeholder="Brief incident title"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required
-                        />
-                    </div>
+                <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 flex-grow flex flex-col">                    <div>
+                    <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+                        Title*
+                    </label>
+                    <input
+                        id="title"
+                        type="text"
+                        placeholder="Brief incident title"
+                        className="w-full px-3 py-2 rounded-md border-2 border-gray-300 hover:border-indigo-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-700 transition-all"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
+                </div>
 
-                    <div className="flex-grow">
+                    <div>
                         <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                             Description*
                         </label>
@@ -87,11 +86,12 @@ export default function IncidentForm({
                             id="description"
                             placeholder="Detailed description of what happened..."
                             rows={6}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                            className="w-full px-3 py-2 rounded-md border-2 border-gray-300 hover:border-indigo-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-700 transition-all"
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
                             required
                         />
+
                     </div>
 
                     <div>

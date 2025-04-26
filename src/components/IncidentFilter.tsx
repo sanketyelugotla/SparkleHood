@@ -32,16 +32,11 @@ export default function IncidentFilter({
             <div className="space-y-4">
                 {/* Search Input */}
                 <div>
-                    <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="search" className="block text-xl font-bold text-gray-700 mb-1">
                         Search incidents
                     </label>
-                    <motion.div
-                        animate={{
-                            borderColor: isSearchFocused ? "#6366f1" : "#d1d5db",
-                            boxShadow: isSearchFocused ? "0 0 0 3px rgba(99, 102, 241, 0.1)" : "none"
-                        }}
-                        transition={{ duration: 0.2 }}
-                        className="relative rounded-md border border-gray-300"
+                    <div
+                        className={`relative rounded-md border-2 ${isSearchFocused ? ' border-indigo-700' : 'border-gray-300'} hover:border-indigo-700 transition-all`}
                     >
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,7 +47,7 @@ export default function IncidentFilter({
                             id="search"
                             type="text"
                             placeholder="Search titles and descriptions..."
-                            className="block w-full pl-10 pr-3 py-2 border-0 bg-transparent focus:ring-0"
+                            className="block w-full pl-10 pr-10 py-2 bg-transparent focus:outline-none focus:ring-0"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onFocus={() => setIsSearchFocused(true)}
@@ -68,7 +63,7 @@ export default function IncidentFilter({
                                 </svg>
                             </button>
                         )}
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Filter and Sort */}
@@ -93,22 +88,8 @@ export default function IncidentFilter({
                         onChange={setSort}
                         label="Sort by"
                     >
-                        <option value="Newest">
-                            <div className="flex items-center">
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                                </svg>
-                                Newest First
-                            </div>
-                        </option>
-                        <option value="Oldest">
-                            <div className="flex items-center">
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                                </svg>
-                                Oldest First
-                            </div>
-                        </option>
+                        <option value="Newest">Newest First</option>
+                        <option value="Oldest">Oldest First</option>
                     </CustomSelect>
                 </div>
             </div>
