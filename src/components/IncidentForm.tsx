@@ -19,7 +19,6 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
         if (!title.trim() || !desc.trim()) return;
 
         setIsSubmitting(true);
-        // Simulate async submission
         await new Promise(resolve => setTimeout(resolve, 500));
 
         onSubmit(title, desc, severity);
@@ -30,13 +29,13 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
     };
 
     return (
-        <div className="rounded-xl">
+        <div className={`rounded-xl ${onCancel ? 'h-full' : ''}`}>
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={onCancel ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
+                exit={onCancel ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 relative"
+                className={`bg-white ${onCancel ? 'h-full' : 'rounded-xl shadow-sm border border-gray-200 relative'}`}
             >
                 {/* Close Button (Mobile Only) */}
                 {onCancel && (
@@ -51,7 +50,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                     </motion.button>
                 )}
 
-                <div className="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-t-xl">
+                <div className={`p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600 ${onCancel ? '' : 'rounded-t-xl'}`}>
                     <h3 className="text-lg font-semibold text-white flex items-center">
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -83,7 +82,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                         <textarea
                             id="description"
                             placeholder="Detailed description of what happened..."
-                            rows={4}
+                            rows={onCancel ? 8 : 4}
                             className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm transition-all duration-200"
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}

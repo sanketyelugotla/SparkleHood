@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { Incident, Severity } from "./types/incident";
 import { mockIncidents } from "./data/mockData";
 import IncidentFilter from "./components/IncidentFilter";
@@ -12,7 +12,8 @@ export default function App() {
 	const [sort, setSort] = useState<"Newest" | "Oldest">("Newest");
 	const [searchQuery, setSearchQuery] = useState("");
 	const [showForm, setShowForm] = useState(false);
-	const formRef = useRef<HTMLDivElement>(null);
+	const [originPosition, setOriginPosition] = useState({ top: 0, left: 0, width: 0, height: 0 });
+	const buttonRef = useRef<HTMLButtonElement>(null);
 
 	const filteredSortedIncidents = useMemo(() => {
 		let list = [...incidents];
@@ -54,17 +55,36 @@ export default function App() {
 			description,
 			severity,
 			reported_at: new Date().toISOString(),
+			expanded: false
 		};
 		setIncidents((prev) => [newIncident, ...prev]);
 		setShowForm(false);
 	};
 
-	const scrollToForm = () => {
+	const handleOpenForm = () => {
+		if (buttonRef.current) {
+			const rect = buttonRef.current.getBoundingClientRect();
+			setOriginPosition({
+				top: rect.top + window.scrollY,
+				left: rect.left + window.scrollX,
+				width: rect.width,
+				height: rect.height
+			});
+		}
 		setShowForm(true);
-		setTimeout(() => {
-			formRef.current?.scrollIntoView({ behavior: 'smooth' });
-		}, 100);
+		document.body.style.overflow = 'hidden';
 	};
+
+	const handleCloseForm = () => {
+		setShowForm(false);
+		document.body.style.overflow = 'auto';
+	};
+
+	useEffect(() => {
+		return () => {
+			document.body.style.overflow = 'auto';
+		};
+	}, []);
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-4 sm:py-8 px-4 sm:px-6">
@@ -109,15 +129,6 @@ export default function App() {
 										</span>
 									)}
 								</h2>
-								<motion.button
-									onClick={scrollToForm}
-									whileHover={{ scale: 1.05 }}
-									className="lg:hidden flex items-center justify-center p-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md"
-								>
-									<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-									</svg>
-								</motion.button>
 							</div>
 							<IncidentList
 								incidents={filteredSortedIncidents}
@@ -126,27 +137,65 @@ export default function App() {
 						</div>
 					</div>
 
-					<AnimatePresence mode="wait">
-						{(showForm || window.innerWidth >= 1024) && (
-							<motion.div
-								ref={formRef}
-								initial={{ opacity: 0, x: 20 }}
-								animate={{ opacity: 1, x: 0 }}
-								exit={{ opacity: 0, x: 20 }}
-								transition={{ duration: 0.2 }}
-								className="lg:col-span-1"
-							>
-								<IncidentForm
-									onSubmit={handleSubmit}
-									onCancel={() => {
-										setShowForm(false);
-										window.scrollTo({ top: 0, behavior: 'smooth' });
-									}}
-								/>
-							</motion.div>
-						)}
-					</AnimatePresence>
+					{/* Desktop Form */}
+					<div className="hidden lg:block lg:col-span-1">
+						<IncidentForm onSubmit={handleSubmit} />
+					</div>
 				</div>
+
+				{/* Mobile Floating Action Button */}
+				<motion.button
+					ref={buttonRef}
+					onClick={handleOpenForm}
+					whileHover={{ scale: 1.1 }}
+					whileTap={{ scale: 0.95 }}
+					className="lg:hidden fixed bottom-6 right-6 z-40 flex items-center justify-center p-4 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg"
+					style={{ width: '56px', height: '56px' }}
+					aria-label="Report new incident"
+				>
+					<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+					</svg>
+				</motion.button>
+
+				{/* Mobile Form Overlay */}
+				<AnimatePresence>
+					{showForm && (
+						<motion.div
+							className="fixed inset-0 z-50 bg-white lg:hidden"
+							initial={{
+								clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
+								opacity: 0
+							}}
+							animate={{
+								clipPath: "circle(150% at 50% 50%)",
+								opacity: 1,
+								transition: {
+									duration: 0.5,
+									ease: [0.33, 1, 0.68, 1]
+								}
+							}}
+							exit={{
+								clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
+								opacity: 0,
+								transition: {
+									duration: 0.3,
+									ease: [0.33, 1, 0.68, 1]
+								}
+							}}
+						>
+							<div className="absolute inset-0 p-4 overflow-y-auto">
+								<IncidentForm
+									onSubmit={(title, desc, severity) => {
+										handleSubmit(title, desc, severity);
+										handleCloseForm();
+									}}
+									onCancel={handleCloseForm}
+								/>
+							</div>
+						</motion.div>
+					)}
+				</AnimatePresence>
 			</div>
 		</div>
 	);
