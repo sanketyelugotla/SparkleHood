@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Incident, Severity } from "./types/incident";
 import { mockIncidents } from "./data/mockData";
 import IncidentFilter from "./components/IncidentFilter";
@@ -12,6 +12,7 @@ export default function App() {
 	const [sort, setSort] = useState<"Newest" | "Oldest">("Newest");
 	const [searchQuery, setSearchQuery] = useState("");
 	const [showForm, setShowForm] = useState(false);
+	const formRef = useRef<HTMLDivElement>(null);
 
 	const filteredSortedIncidents = useMemo(() => {
 		let list = [...incidents];
@@ -58,13 +59,20 @@ export default function App() {
 		setShowForm(false);
 	};
 
+	const scrollToForm = () => {
+		setShowForm(true);
+		setTimeout(() => {
+			formRef.current?.scrollIntoView({ behavior: 'smooth' });
+		}, 100);
+	};
+
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-4 sm:py-8 px-4 sm:px-6">
 			<div className="max-w-6xl mx-auto">
 				<motion.header
 					initial={{ opacity: 0, y: -20 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5 }}
+					transition={{ duration: 0.3 }}
 					className="mb-8 sm:mb-12 text-center"
 				>
 					<h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
@@ -100,8 +108,8 @@ export default function App() {
 									)}
 								</h2>
 								<motion.button
-									onClick={() => setShowForm(!showForm)}
-									whileTap={{ scale: 0.95 }}
+									onClick={scrollToForm}
+									whileHover={{ scale: 1.05 }}
 									className="lg:hidden flex items-center justify-center p-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-md"
 								>
 									<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,16 +124,23 @@ export default function App() {
 						</div>
 					</div>
 
-					<AnimatePresence>
+					<AnimatePresence mode="wait">
 						{(showForm || window.innerWidth >= 1024) && (
 							<motion.div
+								ref={formRef}
 								initial={{ opacity: 0, x: 20 }}
 								animate={{ opacity: 1, x: 0 }}
 								exit={{ opacity: 0, x: 20 }}
-								transition={{ type: "spring", stiffness: 300, damping: 30 }}
+								transition={{ duration: 0.2 }}
 								className="lg:col-span-1"
 							>
-								<IncidentForm onSubmit={handleSubmit} onCancel={() => setShowForm(false)} />
+								<IncidentForm
+									onSubmit={handleSubmit}
+									onCancel={() => {
+										setShowForm(false);
+										window.scrollTo({ top: 0, behavior: 'smooth' });
+									}}
+								/>
 							</motion.div>
 						)}
 					</AnimatePresence>

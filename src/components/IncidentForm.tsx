@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Severity } from "../types/incident";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface IncidentFormProps {
     onSubmit: (title: string, description: string, severity: Severity) => void;
@@ -18,7 +18,6 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
         if (!title.trim() || !desc.trim()) return;
 
         setIsSubmitting(true);
-        // Simulate async submission
         await new Promise(resolve => setTimeout(resolve, 500));
 
         onSubmit(title, desc, severity);
@@ -32,9 +31,21 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative"
         >
+            {/* Close Button (Mobile Only) */}
+            {onCancel && (
+                <button
+                    onClick={onCancel}
+                    className="lg:hidden absolute top-4 right-4 p-1 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors z-10"
+                >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            )}
+
             <div className="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600">
                 <h3 className="text-lg font-semibold text-white flex items-center">
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +64,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                         id="title"
                         type="text"
                         placeholder="Brief incident title"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm transition-all duration-200"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
@@ -68,7 +79,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                         id="description"
                         placeholder="Detailed description of what happened..."
                         rows={4}
-                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm transition-all duration-200"
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
                         required
@@ -79,17 +90,16 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                     <label htmlFor="severity" className="block text-sm font-medium text-gray-700 mb-1">
                         Severity Level
                     </label>
-                    <motion.select
+                    <select
                         id="severity"
-                        whileTap={{ scale: 0.98 }}
-                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm transition-all duration-200"
                         value={severity}
                         onChange={(e) => setSeverity(e.target.value as Severity)}
                     >
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
                         <option value="High">High</option>
-                    </motion.select>
+                    </select>
                 </div>
 
                 <div className="pt-2 flex space-x-3">
@@ -97,7 +107,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                         <button
                             type="button"
                             onClick={onCancel}
-                            className="flex-1 justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="flex-1 justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
                         >
                             Cancel
                         </button>
@@ -105,7 +115,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className={`flex-1 justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isSubmitting ? 'opacity-70' : ''}`}
+                        className={`flex-1 justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ${isSubmitting ? 'opacity-70' : ''}`}
                     >
                         {isSubmitting ? (
                             <span className="flex items-center justify-center">

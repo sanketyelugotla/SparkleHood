@@ -11,6 +11,10 @@ interface IncidentFilterProps {
     setSearchQuery: (query: string) => void;
 }
 
+const SelectOption = ({ value, children }: { value: string; children: React.ReactNode }) => (
+    <option value={value}>{children}</option>
+);
+
 export default function IncidentFilter({
     filter,
     setFilter,
@@ -72,19 +76,17 @@ export default function IncidentFilter({
                         <label htmlFor="severity-filter" className="block text-sm font-medium text-gray-700 mb-1">
                             Severity
                         </label>
-                        <motion.div whileTap={{ scale: 0.98 }}>
-                            <select
-                                id="severity-filter"
-                                value={filter}
-                                onChange={(e) => setFilter(e.target.value as Severity | "All")}
-                                className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md"
-                            >
-                                <option value="All">All Severities</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
-                        </motion.div>
+                        <select
+                            id="severity-filter"
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value as Severity | "All")}
+                            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md transition-all duration-200"
+                        >
+                            <SelectOption value="All">All Severities</SelectOption>
+                            <SelectOption value="Low">Low</SelectOption>
+                            <SelectOption value="Medium">Medium</SelectOption>
+                            <SelectOption value="High">High</SelectOption>
+                        </select>
                     </div>
 
                     {/* Sort By */}
@@ -92,31 +94,29 @@ export default function IncidentFilter({
                         <label htmlFor="sort" className="block text-sm font-medium text-gray-700 mb-1">
                             Sort by
                         </label>
-                        <motion.div whileTap={{ scale: 0.98 }}>
-                            <select
-                                id="sort"
-                                value={sort}
-                                onChange={(e) => setSort(e.target.value as "Newest" | "Oldest")}
-                                className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md"
-                            >
-                                <option value="Newest">
-                                    <div className="flex items-center">
-                                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                                        </svg>
-                                        Newest First
-                                    </div>
-                                </option>
-                                <option value="Oldest">
-                                    <div className="flex items-center">
-                                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                                        </svg>
-                                        Oldest First
-                                    </div>
-                                </option>
-                            </select>
-                        </motion.div>
+                        <select
+                            id="sort"
+                            value={sort}
+                            onChange={(e) => setSort(e.target.value as "Newest" | "Oldest")}
+                            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 pr-10 py-2 text-sm border border-gray-300 rounded-md transition-all duration-200"
+                        >
+                            <SelectOption value="Newest">
+                                <div className="flex items-center">
+                                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                    </svg>
+                                    Newest First
+                                </div>
+                            </SelectOption>
+                            <SelectOption value="Oldest">
+                                <div className="flex items-center">
+                                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                                    </svg>
+                                    Oldest First
+                                </div>
+                            </SelectOption>
+                        </select>
                     </div>
                 </div>
             </div>
