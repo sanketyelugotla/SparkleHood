@@ -14,6 +14,7 @@ export default function App() {
 	const [showForm, setShowForm] = useState(false);
 	const [originPosition, setOriginPosition] = useState({ top: 0, left: 0, width: 0, height: 0 });
 	const buttonRef = useRef<HTMLButtonElement>(null);
+	const modalRef = useRef<HTMLDivElement>(null);
 
 	const filteredSortedIncidents = useMemo(() => {
 		let list = [...incidents];
@@ -79,6 +80,19 @@ export default function App() {
 		setShowForm(false);
 		document.body.style.overflow = 'auto';
 	};
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (showForm && modalRef.current && !modalRef.current.contains(event.target as Node)) {
+				handleCloseForm();
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [showForm]);
 
 	useEffect(() => {
 		return () => {
@@ -149,8 +163,8 @@ export default function App() {
 					onClick={handleOpenForm}
 					whileHover={{ scale: 1.1 }}
 					whileTap={{ scale: 0.95 }}
-					className="lg:hidden fixed bottom-6 right-6 z-40 flex items-center justify-center p-4 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg"
-					style={{ width: '56px', height: '56px' }}
+					className="lg:hidden fixed bottom-8 right-8 z-30 flex items-center justify-center p-4 rounded-full bg-indigo-600 text-white shadow-xl"
+					style={{ width: '64px', height: '64px' }}
 					aria-label="Report new incident"
 				>
 					<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,7 +176,6 @@ export default function App() {
 				<AnimatePresence>
 					{showForm && (
 						<>
-							{/* Backdrop */}
 							<motion.div
 								className="fixed inset-0 bg-black/30 z-40 lg:hidden"
 								initial={{ opacity: 0 }}
@@ -171,38 +184,34 @@ export default function App() {
 								transition={{ duration: 0.3 }}
 							/>
 
-							{/* Animated Form Container */}
-							<motion.div
-								className="fixed inset-0 z-50 lg:hidden flex items-center justify-center p-4"
-								initial={{
-									clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
-									opacity: 0,
-									scale: 0.5
-								}}
-								animate={{
-									clipPath: "circle(150% at 50% 50%)",
-									opacity: 1,
-									scale: 1,
-									transition: {
-										duration: 0.6,
-										ease: [0.22, 1, 0.36, 1],
-										clipPath: {
-											duration: 0.8,
+							<div className="fixed inset-0 z-50 flex items-center justify-center p-4 lg:hidden">
+								<motion.div
+									ref={modalRef}
+									className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden"
+									initial={{
+										clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
+										opacity: 0,
+										scale: 0.5
+									}}
+									animate={{
+										clipPath: "circle(150% at 50% 50%)",
+										opacity: 1,
+										scale: 1,
+										transition: {
+											duration: 0.6,
 											ease: [0.22, 1, 0.36, 1]
 										}
-									}
-								}}
-								exit={{
-									clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
-									opacity: 0,
-									scale: 0.8,
-									transition: {
-										duration: 0.4,
-										ease: [0.22, 1, 0.36, 1]
-									}
-								}}
-							>
-								<div className="bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+									}}
+									exit={{
+										clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
+										opacity: 0,
+										scale: 0.8,
+										transition: {
+											duration: 0.4,
+											ease: [0.22, 1, 0.36, 1]
+										}
+									}}
+								>
 									<IncidentForm
 										onSubmit={(title, desc, severity) => {
 											handleSubmit(title, desc, severity);
@@ -210,8 +219,8 @@ export default function App() {
 										}}
 										onCancel={handleCloseForm}
 									/>
-								</div>
-							</motion.div>
+								</motion.div>
+							</div>
 						</>
 					)}
 				</AnimatePresence>

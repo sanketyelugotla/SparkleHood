@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+body {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth transitions for all animated elements */
+.motion-div {
+    will-change: transform, opacity, clip-path;
+}
+
 @theme {
     --font-display: "Volkhov", "Volkhov";
 }

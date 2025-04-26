@@ -6,9 +6,14 @@ import { Severity } from "../types/incident";
 interface IncidentFormProps {
     onSubmit: (title: string, description: string, severity: Severity) => void;
     onCancel?: () => void;
+    showCloseButton?: boolean;
 }
 
-export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) {
+export default function IncidentForm({
+    onSubmit,
+    onCancel,
+    showCloseButton = true
+}: IncidentFormProps) {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [severity, setSeverity] = useState<Severity>("Low");
@@ -29,16 +34,15 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
     };
 
     return (
-        <div className={`rounded-xl ${onCancel ? 'h-full' : ''}`}>
+        <div className="h-full">
             <motion.div
-                initial={onCancel ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={onCancel ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className={`bg-white ${onCancel ? 'h-full' : 'rounded-xl shadow-sm border border-gray-200 relative'}`}
+                className="h-full flex flex-col"
             >
-                {/* Close Button (Mobile Only) */}
-                {onCancel && (
+                {/* {showCloseButton && onCancel && (
                     <motion.button
                         onClick={onCancel}
                         whileTap={{ scale: 0.9 }}
@@ -48,9 +52,9 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </motion.button>
-                )}
+                )} */}
 
-                <div className={`p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600 ${onCancel ? '' : 'rounded-t-xl'}`}>
+                <div className="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600">
                     <h3 className="text-lg font-semibold text-white flex items-center">
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -59,7 +63,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                     </h3>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
+                <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 flex-grow flex flex-col">
                     <div>
                         <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
                             Title*
@@ -68,38 +72,40 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                             id="title"
                             type="text"
                             placeholder="Brief incident title"
-                            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm transition-all duration-200"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             required
                         />
                     </div>
 
-                    <div>
+                    <div className="flex-grow">
                         <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                             Description*
                         </label>
                         <textarea
                             id="description"
                             placeholder="Detailed description of what happened..."
-                            rows={onCancel ? 8 : 4}
-                            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm transition-all duration-200"
+                            rows={6}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
                             required
                         />
                     </div>
 
-                    <CustomSelect<Severity>
-                        id="severity"
-                        value={severity}
-                        onChange={setSeverity}
-                        label="Severity Level"
-                    >
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="High">High</option>
-                    </CustomSelect>
+                    <div>
+                        <CustomSelect<Severity>
+                            id="severity"
+                            value={severity}
+                            onChange={setSeverity}
+                            label="Severity Level"
+                        >
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </CustomSelect>
+                    </div>
 
                     <div className="pt-2 flex space-x-3">
                         {onCancel && (
@@ -107,7 +113,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                                 type="button"
                                 onClick={onCancel}
                                 whileTap={{ scale: 0.95 }}
-                                className="flex-1 justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
+                                className="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all"
                             >
                                 Cancel
                             </motion.button>
@@ -116,7 +122,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                             type="submit"
                             disabled={isSubmitting}
                             whileTap={{ scale: 0.95 }}
-                            className={`flex-1 justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ${isSubmitting ? 'opacity-70' : ''}`}
+                            className={`flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all ${isSubmitting ? 'opacity-70' : ''}`}
                         >
                             {isSubmitting ? (
                                 <span className="flex items-center justify-center">
@@ -135,4 +141,4 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
             </motion.div>
         </div>
     );
-}
+} 
