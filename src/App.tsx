@@ -2,14 +2,16 @@ import { useState, useMemo } from "react";
 import { Incident, Severity } from "./types/incident";
 import { mockIncidents } from "./data/mockData";
 import IncidentFilter from "./components/IncidentFilter";
-import IncidentList from "./components/IncidentLis";
+import IncidentList from "./components/IncidentList";
 import IncidentForm from "./components/IncidentForm";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function App() {
 	const [incidents, setIncidents] = useState<Incident[]>(mockIncidents);
 	const [filter, setFilter] = useState<Severity | "All">("All");
 	const [sort, setSort] = useState<"Newest" | "Oldest">("Newest");
 	const [searchQuery, setSearchQuery] = useState("");
+	const [showForm, setShowForm] = useState(false);
 
 	const filteredSortedIncidents = useMemo(() => {
 		let list = [...incidents];
@@ -53,21 +55,27 @@ export default function App() {
 			reported_at: new Date().toISOString(),
 		};
 		setIncidents((prev) => [newIncident, ...prev]);
+		setShowForm(false);
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 sm:px-6">
+		<div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-4 sm:py-8 px-4 sm:px-6">
 			<div className="max-w-6xl mx-auto">
-				<header className="mb-12 text-center">
-					<h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+				<motion.header
+					initial={{ opacity: 0, y: -20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.5 }}
+					className="mb-8 sm:mb-12 text-center"
+				>
+					<h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
 						AI Safety Incident Dashboard
 					</h1>
-					<p className="mt-2 text-lg text-gray-600 max-w-2xl mx-auto">
+					<p className="mt-2 text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">
 						Track and report AI safety incidents with transparency
 					</p>
-				</header>
+				</motion.header>
 
-				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+				<div className="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-6">
 					<div className="lg:col-span-2 space-y-6">
 						<IncidentFilter
 							filter={filter}
@@ -79,8 +87,8 @@ export default function App() {
 						/>
 
 						<div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-							<div className="p-6 border-b border-gray-200">
-								<h2 className="text-xl font-semibold text-gray-800 flex items-center">
+							<div className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
+								<h2 className="text-lg sm:text-xl font-semibold text-gray-800 flex items-center">
 									<svg className="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
 									</svg>
@@ -91,6 +99,14 @@ export default function App() {
 										</span>
 									)}
 								</h2>
+								<button
+									onClick={() => setShowForm(!showForm)}
+									className="lg:hidden flex items-center justify-center p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-colors"
+								>
+									<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+									</svg>
+								</button>
 							</div>
 							<IncidentList
 								incidents={filteredSortedIncidents}
@@ -99,8 +115,8 @@ export default function App() {
 						</div>
 					</div>
 
-					<div className="lg:col-span-1">
-						<IncidentForm onSubmit={handleSubmit} />
+					<div className={`lg:col-span-1 ${showForm ? 'block' : 'hidden lg:block'}`}>
+						<IncidentForm onSubmit={handleSubmit} onCancel={() => setShowForm(false)} />
 					</div>
 				</div>
 			</div>
