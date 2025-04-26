@@ -75,7 +75,7 @@ export default function App() {
 					transition={{ duration: 0.3 }}
 					className="mb-8 sm:mb-12 text-center"
 				>
-					<h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+					<h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 mt-2">
 						AI Safety Incident Dashboard
 					</h1>
 					<p className="mt-2 text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">

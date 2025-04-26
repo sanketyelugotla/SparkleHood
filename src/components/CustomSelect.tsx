@@ -15,16 +15,14 @@ interface OptionProps {
     children: ReactNode;
 }
 
-// Type guard to check if child is a valid option element
 function isOptionElement(child: ReactNode): child is React.ReactElement<OptionProps> {
     return (
         child !== null &&
         typeof child === "object" &&
         "props" in child &&
-        typeof child.props != 'undefined' &&
-        child.props != null &&
+        typeof child.props !== "undefined" &&
+        child.props !== null &&
         child.props.hasOwnProperty("value")
-        // typeof child.props.value === "string"
     );
 }
 
@@ -39,7 +37,6 @@ export function CustomSelect<T extends string>({
     const [isOpen, setIsOpen] = useState(false);
     const selectRef = useRef<HTMLDivElement>(null);
 
-    // Get the selected option's label
     const selectedLabel = Children.toArray(children)
         .filter(isOptionElement)
         .find((child) => child.props.value === value)?.props.children;
@@ -65,7 +62,6 @@ export function CustomSelect<T extends string>({
                 </label>
             )}
 
-            {/* Custom select button */}
             <button
                 type="button"
                 id={id}
@@ -89,15 +85,14 @@ export function CustomSelect<T extends string>({
                 </span>
             </button>
 
-            {/* Animated dropdown options */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.ul
-                        initial={{ opacity: 0, y: -10, scaleY: 0.9 }}
+                        initial={{ opacity: 0, y: -10, scaleY: 0.95 }}
                         animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                        exit={{ opacity: 0, y: -10, scaleY: 0.9 }}
+                        exit={{ opacity: 0, y: -10, scaleY: 0.95 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md py-1 border border-gray-200 max-h-60 overflow-auto focus:outline-none"
+                        className="absolute z-50 mt-1 w-full bg-white shadow-lg rounded-md py-1 border border-gray-200 max-h-60 overflow-auto focus:outline-none"
                         role="listbox"
                         style={{ transformOrigin: "top center" }}
                     >
@@ -106,7 +101,7 @@ export function CustomSelect<T extends string>({
                                 return (
                                     <li
                                         key={child.props.value}
-                                        className={`text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-50 ${value === child.props.value ? "bg-indigo-100" : ""
+                                        className={`text-gray-900 cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-indigo-50 ${value === child.props.value ? "bg-indigo-100" : ""
                                             }`}
                                         role="option"
                                         onClick={() => {
@@ -131,7 +126,6 @@ export function CustomSelect<T extends string>({
                 )}
             </AnimatePresence>
 
-            {/* Hidden native select */}
             <select
                 id={`${id}-native`}
                 value={value}
