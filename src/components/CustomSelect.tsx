@@ -88,11 +88,12 @@ export function CustomSelect<T extends string>({
             <AnimatePresence>
                 {isOpen && (
                     <motion.ul
-                        initial={{ opacity: 0, y: -10, scaleY: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                        exit={{ opacity: 0, y: -10, scaleY: 0.95 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute z-50 mt-1 w-full bg-white shadow-lg rounded-md py-1 border border-gray-200 max-h-60 overflow-auto focus:outline-none"
+                        layout
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute z-50 mt-1 w-full bg-white shadow-lg rounded-md py-1 border border-gray-200"
                         role="listbox"
                         style={{ transformOrigin: "top center" }}
                     >

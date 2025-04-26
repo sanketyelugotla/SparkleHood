@@ -40,7 +40,7 @@ export default function IncidentForm({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className={`bg-white ${onCancel ? 'h-full' : 'rounded-xl shadow-sm border border-gray-200 relative'}`}
+                className={`bg-white ${onCancel ? 'h-full' : 'rounded-xl shadow-sm border border-gray-200 relative'} min-h-[600px]`}  // <-- ADD min-h
             >
                 {/* {showCloseButton && onCancel && (
                     <motion.button
