@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { CustomSelect } from "./CustomSelect";
 import { Severity } from "../types/incident";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface IncidentFormProps {
     onSubmit: (title: string, description: string, severity: Severity) => void;
@@ -18,6 +19,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
         if (!title.trim() || !desc.trim()) return;
 
         setIsSubmitting(true);
+        // Simulate async submission
         await new Promise(resolve => setTimeout(resolve, 500));
 
         onSubmit(title, desc, severity);
@@ -31,19 +33,21 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.2 }}
             className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative"
         >
             {/* Close Button (Mobile Only) */}
             {onCancel && (
-                <button
+                <motion.button
                     onClick={onCancel}
+                    whileTap={{ scale: 0.9 }}
                     className="lg:hidden absolute top-4 right-4 p-1 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors z-10"
                 >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                </button>
+                </motion.button>
             )}
 
             <div className="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600">
@@ -83,38 +87,35 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
                         required
-                    ></textarea>
+                    />
                 </div>
 
-                <div>
-                    <label htmlFor="severity" className="block text-sm font-medium text-gray-700 mb-1">
-                        Severity Level
-                    </label>
-                    <select
-                        id="severity"
-                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm transition-all duration-200"
-                        value={severity}
-                        onChange={(e) => setSeverity(e.target.value as Severity)}
-                    >
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="High">High</option>
-                    </select>
-                </div>
+                <CustomSelect<Severity>
+                    id="severity"
+                    value={severity}
+                    onChange={setSeverity}
+                    label="Severity Level"
+                >
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </CustomSelect>
 
                 <div className="pt-2 flex space-x-3">
                     {onCancel && (
-                        <button
+                        <motion.button
                             type="button"
                             onClick={onCancel}
+                            whileTap={{ scale: 0.95 }}
                             className="flex-1 justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
                         >
                             Cancel
-                        </button>
+                        </motion.button>
                     )}
-                    <button
+                    <motion.button
                         type="submit"
                         disabled={isSubmitting}
+                        whileTap={{ scale: 0.95 }}
                         className={`flex-1 justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 ${isSubmitting ? 'opacity-70' : ''}`}
                     >
                         {isSubmitting ? (
@@ -128,7 +129,7 @@ export default function IncidentForm({ onSubmit, onCancel }: IncidentFormProps) 
                         ) : (
                             'Submit Report'
                         )}
-                    </button>
+                    </motion.button>
                 </div>
             </form>
         </motion.div>
