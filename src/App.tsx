@@ -4,7 +4,7 @@ import { mockIncidents } from "./data/mockData";
 import IncidentFilter from "./components/IncidentFilter";
 import IncidentList from "./components/IncidentList";
 import IncidentForm from "./components/IncidentForm";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function App() {
 	const [incidents, setIncidents] = useState<Incident[]>(mockIncidents);
