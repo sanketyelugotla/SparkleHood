@@ -55,7 +55,7 @@ export default function IncidentForm({
                 )} */}
 
                 <div className="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-t-xl">
-                    <h3 className="text-lg font-semibold text-white flex items-center">
+                    <h3 className="text-xl font-semibold text-white flex items-center">
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
@@ -64,7 +64,7 @@ export default function IncidentForm({
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 flex-grow flex flex-col">                    <div>
-                    <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="title" className="block text-md font-medium text-gray-700 mb-1">
                         Title*
                     </label>
                     <input
@@ -79,7 +79,7 @@ export default function IncidentForm({
                 </div>
 
                     <div>
-                        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="description" className="block text-md font-medium text-gray-700 mb-1">
                             Description*
                         </label>
                         <textarea
