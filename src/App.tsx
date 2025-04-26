@@ -76,7 +76,9 @@ export default function App() {
 					className="mb-8 sm:mb-12 text-center"
 				>
 					<h1 className="text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 mt-2">
-						AI Safety Incident Dashboard
+						AI Safety&nbsp;
+						<br className="block sm:hidden" />
+						Incident Dashboard
 					</h1>
 					<p className="mt-2 text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">
 						Track and report AI safety incidents with transparency

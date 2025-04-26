@@ -22,11 +22,12 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
         >
             <div className="flex justify-between items-start gap-3">
                 <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-1">
                         <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                             {incident.title}
                         </h3>
-                        <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${severityColors[incident.severity]} whitespace-nowrap`}>
+                        <br className="block sm:hidden" />
+                        <span className={`px-2 py-1 text-xs font-medium rounded-md ${severityColors[incident.severity]} whitespace-nowrap`}>
                             {incident.severity}
                         </span>
                     </div>
