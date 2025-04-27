@@ -122,9 +122,12 @@ export default function App() {
 						<br className="block sm:hidden" />
 						Incident Dashboard
 					</h1>
-					<p className="mt-2 text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">
-						Track and report AI safety incidents with transparency
-					</p>
+					<div className="mt-2 text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto flex justify-between items-center">
+						<p>Track and report AI safety incidents with transparency</p>
+						<span className="text-sm font-medium bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
+							{filteredSortedIncidents.length} {filteredSortedIncidents.length === 1 ? 'incident' : 'incidents'}
+						</span>
+					</div>
 				</motion.header>
 
 				<div className="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-6">
