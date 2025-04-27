@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Safety Incident Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.8;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #333;
+      }
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+      .button {
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+      }
+      .button:hover {
+        background-color: #0056b3;
+      }
+      code {
+        background: #eee;
+        padding: 3px 5px;
+        border-radius: 4px;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 12px;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+      hr {
+        margin: 30px 0;
+        border: none;
+        height: 1px;
+        background: #ccc;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      ul,
+      ol {
+        padding-left: 25px;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+      #laptop {
+        width: 50rem;
+      }
+
+      #tab {
+        width: 25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>AI Safety Incident Dashboard</h1>
+
+    <p>
+      A responsive web application for tracking and reporting AI safety
+      incidents with transparency and ease.
+    </p>
+
+    <h3>🔗 Live Demo</h3>
+    <a href="https://sparkle-hood.vercel.app/" target="_blank" class="button"
+      >View Live Project</a
+    >
+    <h3>🔗 Github Repository</h3>
+    <a
+      href="https://github.com/sanketyelugotla/SparkleHood"
+      target="_blank"
+      class="button"
+      >View Github repository</a
+    >
+
+    <hr />
+
+    <h2>Table of Contents</h2>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#device-screenshots">Device Screenshots</a></li>
+      <li><a href="#technologies-used">Technologies Used</a></li>
+      <li><a href="#project-setup">Project Setup</a></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#project-structure">Project Structure</a></li>
+      <li><a href="#usage">Usage</a></li>
+      <li><a href="#customization">Customization</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <hr />
+
+    <h2 id="features">Features</h2>
+    <ul>
+      <li>
+        🚨 <strong>Incident Management</strong>
+        <ul>
+          <li>Report new AI safety incidents</li>
+          <li>View and expand incident details</li>
+          <li>Sort by newest/oldest reports</li>
+        </ul>
+      </li>
+      <li>
+        🔍 <strong>Advanced Filtering</strong>
+        <ul>
+          <li>Filter by severity level (Low, Medium, High)</li>
+          <li>Search by title or description</li>
+        </ul>
+      </li>
+      <li>
+        📱 <strong>Responsive Design</strong>
+        <ul>
+          <li>Mobile-friendly interface</li>
+          <li>Desktop-optimized layout</li>
+        </ul>
+      </li>
+      <li>
+        ✨ <strong>Interactive UI</strong>
+        <ul>
+          <li>Smooth animations with Framer Motion</li>
+          <li>Floating action button on mobile</li>
+          <li>Click-outside to close functionality</li>
+        </ul>
+      </li>
+      <li>
+        📊 <strong>Data Visualization</strong>
+        <ul>
+          <li>Clear incident severity indicators</li>
+          <li>Organized list view</li>
+        </ul>
+      </li>
+    </ul>
+
+    <hr />
+
+    <h2 id="device-screenshots">Device Screenshots</h2>
+
+    <h3>Mobile Phones</h3>
+    <table>
+      <tr>
+        <td><img src="./screenshots/iphone1.png" alt="Mobile Phone 1" /></td>
+        <td><img src="./screenshots/iphone2.png" alt="Mobile Phone 2" /></td>
+        <td><img src="./screenshots/iphone3.png" alt="Mobile Phone 3" /></td>
+      </tr>
+    </table>
+
+    <h3>Laptops</h3>
+    <img src="./screenshots/mac.png" alt="Laptop Screenshot" id="laptop" />
+
+    <h3>Tablets</h3>
+    <table>
+      <tr>
+        <td><img src="./screenshots/pad1.png" alt="Tablet 1" id="tab" /></td>
+        <td><img src="./screenshots/pad2.png" alt="Tablet 2" id="tab" /></td>
+      </tr>
+    </table>
+
+    <hr />
+
+    <h2 id="technologies-used">Technologies Used</h2>
+    <ul>
+      <li>
+        <strong>Frontend:</strong> React (TypeScript), Tailwind CSS, Framer
+        Motion
+      </li>
+      <li><strong>Build Tools:</strong> Vite, npm</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="project-setup">Project Setup</h2>
+    <p>Before you begin, ensure you have the following installed:</p>
+    <ul>
+      <li>
+        <strong>Node.js:</strong>
+        <a href="https://nodejs.org/" target="_blank">Download Node.js</a>
+      </li>
+      <li><strong>npm:</strong> (comes with Node.js)</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="installation">Installation</h2>
+    <ol>
+      <li>
+        <strong>Clone the repository:</strong>
+        <pre><code>git clone https://github.com/sanketyelugotla/SparkleHood.git
+cd SparkleHood</code></pre>
+      </li>
+      <li>
+        <strong>Install dependencies:</strong>
+        <pre><code>npm install</code></pre>
+      </li>
+      <li>
+        <strong>Start the development server:</strong>
+        <pre><code>npm run dev</code></pre>
+      </li>
+      <li>
+        After the server starts, you can open the app in your browser at
+        <pre><code><a href="http://localhost:5173" target="_blank">http://localhost:5173</a></code></pre>
+        <ul>
+          <li>
+            The project should automatically open in your default web browser.
+          </li>
+          <li>
+            If it does not, manually open the browser and go to
+            <a href="http://localhost:5173">http://localhost:5173</a>
+          </li>
+        </ul>
+      </li>
+    </ol>
+
+    <hr />
+
+    <h2 id="project-structure">Project Structure</h2>
+    <pre><code>
+  SparkleHood/
+  ├── src/
+  │ ├── components/ # React components
+  │ │ ├── IncidentFilter.tsx # For filtering and sorting
+  │ │ ├── IncidentForm.tsx # For for adding a new incident
+  │ │ ├── IncidentList.tsx # For displaying incidents
+  │ │ ├── IncidentCard.tsx # Card for individual incident
+  │ │ └── CustomSelect.tsx # Custom dropdown component
+  │ ├── data/ # Mock data
+  │ │ └── mockData.ts # Mock data of incidents
+  │ ├── types/ # TypeScript types
+  │ │ └── incident.ts # Data types of incident
+  │ └── App.tsx # Main application
+  ├── public/ # Static assets
+  ├── package.json
+  └── README.md
+</code></pre>
+
+    <hr />
+
+    <h2 id="usage">Usage</h2>
+
+    <h3>Viewing Incidents</h3>
+    <ul>
+      <li>Scroll through the chronological list of reported incidents</li>
+      <li>Click any incident card to expand/collapse detailed description</li>
+      <li>Use filters to quickly locate specific incidents</li>
+    </ul>
+
+    <h3>Reporting New Incidents</h3>
+    <h4>Desktop Experience</h4>
+    <ul>
+      <li>Persistent form panel in the right sidebar</li>
+      <li>Real-time validation for all form fields</li>
+    </ul>
+
+    <h4>Mobile Experience</h4>
+    <ul>
+      <li>Floating action button (+) in bottom-right corner</li>
+      <li>Smooth circular reveal animation from button</li>
+      <li>Optimized vertical layout for touch input</li>
+    </ul>
+
+    <h3>Filtering & Sorting</h3>
+    <h4>Severity Levels</h4>
+    <ul>
+      <li>Three-tiered classification (Low/Medium/High)</li>
+      <li>Visual color-coding for quick identification</li>
+    </ul>
+
+    <h4>Sorting Options</h4>
+    <ul>
+      <li>Chronological (Newest first)</li>
+      <li>Reverse chronological (Oldest first)</li>
+    </ul>
+
+    <h4>Search Functionality</h4>
+    <ul>
+      <li>Full-text search across titles and descriptions</li>
+      <li>Case-insensitive matching</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="customization">Customization</h2>
+    <h3>Visual Styling</h3>
+    <ul>
+      <li>Modify Tailwind CSS classes in component files</li>
+      <li>
+        Adjust color palette in <code>@theme</code> inside
+        <code>index.css</code>
+      </li>
+      <li>Update animation durations in Framer Motion components</li>
+    </ul>
+
+    <h3>Data Management</h3>
+    <ul>
+      <li>Edit <code>src/data/mockData.ts</code> to modify sample incidents</li>
+      <li>Adjust default form values in <code>IncidentForm.tsx</code></li>
+    </ul>
+
+    <h3>Feature Expansion</h3>
+    <ul>
+      <li>Replace mock data fetches with real API calls</li>
+      <li>Add loading/error states for network requests</li>
+      <li>Implement new filter categories (status, date ranges)</li>
+      <li>Add multi-select filtering capabilities</li>
+    </ul>
+
+    <hr />
+
+    <h2 id="contact">Contact</h2>
+    <ul>
+      <li>
+        📧 <strong>Email:</strong>
+        <a href="mailto:sanketyelugotla123@example.com"
+          >sanketyelugotla123@example.com</a
+        >
+      </li>
+      <li>
+        💼 <strong>LinkedIn:</strong>
+        <a href="https://www.linkedin.com/in/sanketyelugotla/" target="_blank"
+          >@sanketyelugotla</a
+        >
+      </li>
+      <li>
+        🌐 <strong>Portfolio:</strong>
+        <a href="https://sanketyelugotla.vercel.app" target="_blank"
+          >Visit my work here</a
+        >
+      </li>
+    </ul>
+  </body>
+</html>

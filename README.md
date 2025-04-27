@@ -4,7 +4,7 @@ A responsive web application for tracking and reporting AI safety incidents with
 
 ## 🔗 Live Demo
 
-[Click here to view the live project](https://sparkle-hood.vercel.app/)
+[View Live project](https://sparkle-hood.vercel.app/)
 
 ---
 
@@ -19,19 +19,7 @@ A responsive web application for tracking and reporting AI safety incidents with
 - [Installation](#installation)
 - [Project Structure](#project-structure)
 - [Usage](#usage)
-  - [Viewing Incidents](#viewing-incidents)
-  - [Reporting New Incidents](#reporting-new-incidents)
-    - [Desktop Experience](#desktop-experience)
-    - [Mobile Experience](#mobile-experience)
-  - [Filtering & Sorting](#filtering--sorting)
-    - [Severity Levels](#severity-levels)
-    - [Sorting Options](#sorting-options)
-    - [Search Functionality](#search-functionality)
 - [Customization](#customization)
-  - [Visual Styling](#visual-styling)
-  - [Data Management](#data-management)
-  - [API Integration](#api-integration)
-  - [Enhanced Filtering](#enhanced-filtering)
 - [Contact](#contact)
 
 ---
@@ -132,14 +120,15 @@ Before you begin, ensure you have the following installed for the project
   SparkleHood/
   ├── src/
   │ ├── components/ # React components
-  │ │ ├── IncidentFilter.tsx
-  │ │ ├── IncidentForm.tsx
-  │ │ ├── IncidentList.tsx
-  │ │ └── CustomSelect.tsx
+  │ │ ├── IncidentFilter.tsx # For filtering and sorting
+  │ │ ├── IncidentForm.tsx # For for adding a new incident
+  │ │ ├── IncidentList.tsx # For displaying incidents
+  │ │ ├── IncidentCard.tsx # Card for individual incident
+  │ │ └── CustomSelect.tsx # Custom dropdown component
   │ ├── data/ # Mock data
-  │ │ └── mockData.ts
+  │ │ └── mockData.ts # Mock data of incidents
   │ ├── types/ # TypeScript types
-  │ │ └── incident.ts
+  │ │ └── incident.ts # Data types of incident
   │ └── App.tsx # Main application
   ├── public/ # Static assets
   ├── package.json
