@@ -22,22 +22,30 @@ A responsive web application for tracking and reporting AI safety incidents with
 ## Features
 
 - 🚨 **Incident Management**
-  - Report new AI safety incidents
-  - View and expand incident details
-  - Sort by newest/oldest reports
+
+  - **Report new AI safety incidents** – Easily submit reports.
+  - **View and expand incident details** – Detailed view for each incident.
+  - **Sort by newest/oldest reports** – Quickly sort incidents based on their report date.
+
 - 🔍 **Advanced Filtering**
-  - Filter by severity level (Low, Medium, High)
-  - Search by title or description
+
+  - **Filter by severity level** (Low, Medium, High) – Quickly narrow down incidents by severity.
+  - **Search by title or description** – Search functionality to find specific incidents, with **highlighted search results** for better visibility.
+
 - 📱 **Responsive Design**
-  - Mobile-friendly interface
-  - Desktop-optimized layout
+
+  - **Mobile-friendly interface** – Full functionality on mobile devices.
+  - **Desktop-optimized layout** – Tailored design for desktop use.
+
 - ✨ **Interactive UI**
-  - Smooth animations with Framer Motion
-  - Floating action button on mobile
-  - Click-outside to close functionality
+
+  - **Smooth animations with Framer Motion** – Enjoy seamless transitions and animations.
+  - **Floating action button on mobile** – Easy access to report new incidents on mobile.
+  - **Click-outside to close functionality** – Close modals or forms by clicking outside.
+
 - 📊 **Data Visualization**
-  - Clear incident severity indicators
-  - Organized list view
+  - **Clear incident severity indicators** – Visual cues for severity (Low, Medium, High).
+  - **Organized list view** – Clean, organized incident list for better readability.
 
 ---
 
