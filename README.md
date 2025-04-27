@@ -63,7 +63,7 @@ A responsive web application for tracking and reporting AI safety incidents with
 ### Mobile Phones
 
 | ![Mobile Phone 1](./screenshots/iphone1.png) | ![Mobile Phone 2](./screenshots/iphone2.png) | ![Mobile Phone 3](./screenshots/iphone3.png) |
-|:--------------------------------------------:|:--------------------------------------------:|:--------------------------------------------:|
+| :------------------------------------------: | :------------------------------------------: | :------------------------------------------: |
 
 ### Laptops
 
@@ -72,7 +72,9 @@ A responsive web application for tracking and reporting AI safety incidents with
 ### Tablets
 
 | ![Tablet 1](./screenshots/pad1.png) | ![Tablet 2](./screenshots/pad2.png) |
-|:-----------------------------------:|:-----------------------------------:|
+| :---------------------------------: | :---------------------------------: |
+
+---
 
 ## Technologies Used
 
@@ -184,6 +186,8 @@ Before you begin, ensure you have the following installed for both the **fronten
 - Full-text search across titles and descriptions
 - Case-insensitive matching
 
+---
+
 ## Customization
 
 ### Visual Styling
@@ -207,6 +211,8 @@ Before you begin, ensure you have the following installed for both the **fronten
 
 - Add new filter categories (status, date ranges)
 - Implement multi-select capabilities
+
+---
 
 ## Contact
 
