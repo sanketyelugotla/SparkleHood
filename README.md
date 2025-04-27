@@ -90,7 +90,7 @@ A responsive web application for tracking and reporting AI safety incidents with
 
 ## Project Setup
 
-Before you begin, ensure you have the following installed for both the **frontend** and **backend**:
+Before you begin, ensure you have the following installed for the project
 
 - **Node.js**: [Download Node.js](https://nodejs.org/)
 - **npm** (comes with Node.js): For managing dependencies.
@@ -102,8 +102,8 @@ Before you begin, ensure you have the following installed for both the **fronten
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/sanketyelugotla/skygeni
-   cd Frontend
+   git clone https://github.com/sanketyelugotla/SparkleHood.git
+   cd SparkleHood
    ```
 
 2. **Install dependencies:**
@@ -216,6 +216,6 @@ Before you begin, ensure you have the following installed for both the **fronten
 
 ## Contact
 
-- 📧 **Email:** [sanketyelugotla123@example.com](mailto:sanketyelugotla123@example.com)
+- 📧 **Email:** [sanketyelugotla123@example.com](mailto:sanketyelugotla123@gmail.com)
 - 💼 **LinkedIn:** [@sanketyelugotla](https://www.linkedin.com/in/sanketyelugotla/)
 - 🌐 **Portfolio:** [Visit my work here](https://sanketyelugotla.vercel.app)
