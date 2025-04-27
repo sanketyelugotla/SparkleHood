@@ -1,7 +1,5 @@
 # AI Safety Incident Dashboard
 
-![Dashboard Screenshot](./screenshot.png) _(Add your screenshot here)_
-
 A responsive web application for tracking and reporting AI safety incidents with transparency and ease.
 
 ## 🔗 Live Demo
@@ -57,6 +55,23 @@ A responsive web application for tracking and reporting AI safety incidents with
   - Organized list view
 
 ---
+
+## Device Screenshots
+
+### Mobile Phones
+
+| ![Mobile Phone 1](./screenshots/iPhone1.png) | ![Mobile Phone 2](./screenshots/iPhone2.png) |
+| ![Mobile Phone 3](./screenshots/iPhone3.png) |
+| ------------------------------------------------------ | -------------------------------------------------------- |
+
+### Laptops
+
+![Laptop 1](./screenshots/mac.png)
+
+### Tablets
+
+| ![Tablet 1](./screenshots/pad1.png)            | ![Tablet 2](./screenshots/pad2.png)              |
+| ----------------------------------------------------- | -------------------------------------------------------- |
 
 ## Technologies Used
 
