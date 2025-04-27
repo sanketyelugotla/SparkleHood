@@ -18,14 +18,22 @@ export default function App() {
 
 	const filteredSortedIncidents = useMemo(() => {
 		let list = [...incidents];
+		const query = searchQuery.toLowerCase();
 
 		if (searchQuery) {
-			const query = searchQuery.toLowerCase();
 			list = list.filter(
 				(i) =>
 					i.title.toLowerCase().includes(query) ||
 					i.description.toLowerCase().includes(query)
 			);
+
+			// Auto-expand incidents with matches in description
+			list = list.map(i => {
+				if (i.description.toLowerCase().includes(query)) {
+					return { ...i, expanded: true };
+				}
+				return i;
+			});
 		}
 
 		if (filter !== "All") {
@@ -143,10 +151,14 @@ export default function App() {
 										</span>
 									)}
 								</h2>
+								<span className="text-sm text-gray-500">
+									Showing {filteredSortedIncidents.length} of {incidents.length}
+								</span>
 							</div>
 							<IncidentList
 								incidents={filteredSortedIncidents}
 								onToggleExpand={toggleExpand}
+								searchQuery={searchQuery}
 							/>
 						</div>
 					</div>
