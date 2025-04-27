@@ -73,7 +73,6 @@ A responsive web application for tracking and reporting AI safety incidents with
 | ![Tablet 1](./screenshots/pad1.png) | ![Tablet 2](./screenshots/pad2.png) |
 |:-----------------------------------:|:-----------------------------------:|
 
-
 ## Technologies Used
 
 - **Frontend**
@@ -126,21 +125,23 @@ Before you begin, ensure you have the following installed for both the **fronten
 
 ## Project Structure
 
-SparkleHood/
-├── src/
-│ ├── components/ # React components
-│ │ ├── IncidentFilter.tsx
-│ │ ├── IncidentForm.tsx
-│ │ ├── IncidentList.tsx
-│ │ └── CustomSelect.tsx
-│ ├── data/ # Mock data
-│ │ └── mockData.ts
-│ ├── types/ # TypeScript types
-│ │ └── incident.ts
-│ └── App.tsx # Main application
-├── public/ # Static assets
-├── package.json
-└── README.md
+```bash
+  SparkleHood/
+  ├── src/
+  │ ├── components/ # React components
+  │ │ ├── IncidentFilter.tsx
+  │ │ ├── IncidentForm.tsx
+  │ │ ├── IncidentList.tsx
+  │ │ └── CustomSelect.tsx
+  │ ├── data/ # Mock data
+  │ │ └── mockData.ts
+  │ ├── types/ # TypeScript types
+  │ │ └── incident.ts
+  │ └── App.tsx # Main application
+  ├── public/ # Static assets
+  ├── package.json
+  └── README.md
+```
 
 ---
 
