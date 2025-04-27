@@ -32,6 +32,7 @@ A responsive web application for tracking and reporting AI safety incidents with
   - [Data Management](#data-management)
   - [API Integration](#api-integration)
   - [Enhanced Filtering](#enhanced-filtering)
+- [Contact](#contact)
 
 ---
 
@@ -206,3 +207,9 @@ Before you begin, ensure you have the following installed for both the **fronten
 
 - Add new filter categories (status, date ranges)
 - Implement multi-select capabilities
+
+## Contact
+
+- 📧 **Email:** [sanketyelugotla123@example.com](mailto:sanketyelugotla123@example.com)
+- 💼 **LinkedIn:** [@sanketyelugotla](https://www.linkedin.com/in/sanketyelugotla/)
+- 🌐 **Portfolio:** [Visit my work here](https://sanketyelugotla.vercel.app)
