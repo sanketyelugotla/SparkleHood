@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 interface IncidentCardProps {
     incident: Incident;
     onToggleExpand: (id: number) => void;
+    searchQuery?: string;
 }
 
-export default function IncidentCard({ incident, onToggleExpand }: IncidentCardProps) {
+export default function IncidentCard({ incident, onToggleExpand, searchQuery }: IncidentCardProps) {
     const severityColors = {
         Low: "bg-emerald-100 text-emerald-800",
         Medium: "bg-amber-100 text-amber-800",
@@ -18,8 +19,27 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
     };
 
     const handleDetailsButtonClick = (e: React.MouseEvent) => {
-        e.stopPropagation();  // Prevents triggering card click when clicking the button
+        e.stopPropagation();
         onToggleExpand(incident.id);
+    };
+
+    const highlightText = (text: string, query?: string) => {
+        if (!query || !text.toLowerCase().includes(query.toLowerCase())) {
+            return text;
+        }
+
+        const parts = text.split(new RegExp(`(${query})`, 'gi'));
+        return (
+            <>
+                {parts.map((part, i) =>
+                    part.toLowerCase() === query.toLowerCase() ? (
+                        <mark key={i} className="bg-yellow-200">{part}</mark>
+                    ) : (
+                        part
+                    )
+                )}
+            </>
+        );
     };
 
     return (
@@ -28,13 +48,13 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             className="p-4 sm:p-6 hover:bg-gray-50 transition-colors duration-150 border-b border-gray-200 last:border-b-0 cursor-pointer"
-            onClick={handleCardClick}  // Handle click anywhere on the card
+            onClick={handleCardClick}
         >
             <div className="flex justify-between items-start gap-3">
                 <div className="flex-1 min-w-0">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
                         <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
-                            {incident.title}
+                            {searchQuery ? highlightText(incident.title, searchQuery) : incident.title}
                         </h3>
                         <span className={`mt-1 sm:mt-0 px-2 py-1 text-xs font-medium rounded-md ${severityColors[incident.severity]} whitespace-nowrap self-start`}>
                             {incident.severity}
@@ -56,7 +76,7 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
                 </div>
                 <motion.button
                     whileTap={{ scale: 0.95 }}
-                    onClick={handleDetailsButtonClick}  // Handle button click without propagating to card click
+                    onClick={handleDetailsButtonClick}
                     className="flex-shrink-0 inline-flex items-center px-2 sm:px-3 py-1 border border-transparent text-xs sm:text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
                 >
                     {incident.expanded ? "Hide" : "Details"}
@@ -72,7 +92,9 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
                         className="overflow-hidden"
                     >
                         <div className="mt-3 pt-3 border-t border-gray-100">
-                            <p className="text-sm sm:text-base text-gray-700 whitespace-pre-line">{incident.description}</p>
+                            <p className="text-sm sm:text-base text-gray-700 whitespace-pre-line">
+                                {searchQuery ? highlightText(incident.description, searchQuery) : incident.description}
+                            </p>
                         </div>
                     </motion.div>
                 )}

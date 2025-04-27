@@ -18,14 +18,22 @@ export default function App() {
 
 	const filteredSortedIncidents = useMemo(() => {
 		let list = [...incidents];
+		const query = searchQuery.toLowerCase();
 
 		if (searchQuery) {
-			const query = searchQuery.toLowerCase();
 			list = list.filter(
 				(i) =>
 					i.title.toLowerCase().includes(query) ||
 					i.description.toLowerCase().includes(query)
 			);
+
+			// Auto-expand incidents with matches in description
+			list = list.map(i => {
+				if (i.description.toLowerCase().includes(query)) {
+					return { ...i, expanded: true };
+				}
+				return i;
+			});
 		}
 
 		if (filter !== "All") {
@@ -114,9 +122,12 @@ export default function App() {
 						<br className="block sm:hidden" />
 						Incident Dashboard
 					</h1>
-					<p className="mt-2 text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto">
-						Track and report AI safety incidents with transparency
-					</p>
+					<div className="mt-2 text-sm sm:text-lg text-gray-600 max-w-2xl mx-auto flex justify-between items-center">
+						<p>Track and report AI safety incidents with transparency</p>
+						<span className="text-sm font-medium bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
+							{filteredSortedIncidents.length} {filteredSortedIncidents.length === 1 ? 'incident' : 'incidents'}
+						</span>
+					</div>
 				</motion.header>
 
 				<div className="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-6">
@@ -143,10 +154,14 @@ export default function App() {
 										</span>
 									)}
 								</h2>
+								<span className="text-sm text-gray-500">
+									Showing {filteredSortedIncidents.length} of {incidents.length}
+								</span>
 							</div>
 							<IncidentList
 								incidents={filteredSortedIncidents}
 								onToggleExpand={toggleExpand}
+								searchQuery={searchQuery}
 							/>
 						</div>
 					</div>
