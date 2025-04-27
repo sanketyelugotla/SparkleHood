@@ -61,9 +61,8 @@ A responsive web application for tracking and reporting AI safety incidents with
 
 ### Mobile Phones
 
-| ![Mobile Phone 1](./screenshots/iphone1.png) | ![Mobile Phone 2](./screenshots/iphone2.png) |
-|:--------------------------------------------:|:--------------------------------------------:|
-| ![Mobile Phone 3](./screenshots/iphone3.png) |                                              |
+| ![Mobile Phone 1](./screenshots/iphone1.png) | ![Mobile Phone 2](./screenshots/iphone2.png) | | ![Mobile Phone 3](./screenshots/iphone3.png) |
+|:--------------------------------------------:|:--------------------------------------------:|:-----------------------------------------------|
 
 ### Laptops
 
@@ -73,6 +72,8 @@ A responsive web application for tracking and reporting AI safety incidents with
 
 | ![Tablet 1](./screenshots/pad1.png) | ![Tablet 2](./screenshots/pad2.png) |
 |:-----------------------------------:|:-----------------------------------:|
+
+---
 
 ## Technologies Used
 
