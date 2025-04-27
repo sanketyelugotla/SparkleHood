@@ -2,16 +2,11 @@
 
 A responsive web application for tracking and reporting AI safety incidents with transparency and ease.
 
-## 🔗 Live Demo
-
-[View Live project](https://sparkle-hood.vercel.app/)
-
----
+**Live Demo** [View Live project](https://sparkle-hood.vercel.app/)
 
 ## Table of Contents
 
 - [AI Safety Incident Dashboard](#ai-safety-incident-dashboard)
-- [🔗 Live Demo](#-live-demo)
 - [Features](#features)
 - [Device Screenshots](#device-screenshots)
 - [Technologies Used](#technologies-used)
