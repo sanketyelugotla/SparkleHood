@@ -202,9 +202,3 @@ Before you begin, ensure you have the following installed for the project
 - Implement multi-select capabilities
 
 ---
-
-## Contact
-
-- 📧 **Email:** [sanketyelugotla123@example.com](mailto:sanketyelugotla123@gmail.com)
-- 💼 **LinkedIn:** [@sanketyelugotla](https://www.linkedin.com/in/sanketyelugotla/)
-- 🌐 **Portfolio:** [Visit my work here](https://sanketyelugotla.vercel.app)
