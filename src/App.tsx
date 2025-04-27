@@ -163,7 +163,7 @@ export default function App() {
 					onClick={handleOpenForm}
 					whileHover={{ scale: 1.1 }}
 					whileTap={{ scale: 0.95 }}
-					className="lg:hidden fixed bottom-8 right-8 z-30 flex items-center justify-center p-4 rounded-full bg-indigo-600 text-white shadow-xl"
+					className="lg:hidden fixed bottom-8 right-8 z-30 flex items-center justify-center p-4 rounded-full bg-indigo-600 text-white shadow-xl cursor-pointer"
 					style={{ width: '64px', height: '64px' }}
 					aria-label="Report new incident"
 				>

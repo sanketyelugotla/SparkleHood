@@ -13,12 +13,22 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
         High: "bg-rose-100 text-rose-800",
     };
 
+    const handleCardClick = () => {
+        onToggleExpand(incident.id);
+    };
+
+    const handleDetailsButtonClick = (e: React.MouseEvent) => {
+        e.stopPropagation();  // Prevents triggering card click when clicking the button
+        onToggleExpand(incident.id);
+    };
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="p-4 sm:p-6 hover:bg-gray-50 transition-colors duration-150 border-b border-gray-200 last:border-b-0"
+            className="p-4 sm:p-6 hover:bg-gray-50 transition-colors duration-150 border-b border-gray-200 last:border-b-0 cursor-pointer"
+            onClick={handleCardClick}  // Handle click anywhere on the card
         >
             <div className="flex justify-between items-start gap-3">
                 <div className="flex-1 min-w-0">
@@ -46,8 +56,8 @@ export default function IncidentCard({ incident, onToggleExpand }: IncidentCardP
                 </div>
                 <motion.button
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => onToggleExpand(incident.id)}
-                    className="flex-shrink-0 inline-flex items-center px-2 sm:px-3 py-1 border border-transparent text-xs sm:text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onClick={handleDetailsButtonClick}  // Handle button click without propagating to card click
+                    className="flex-shrink-0 inline-flex items-center px-2 sm:px-3 py-1 border border-transparent text-xs sm:text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
                 >
                     {incident.expanded ? "Hide" : "Details"}
                 </motion.button>
