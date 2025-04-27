@@ -13,6 +13,7 @@ A responsive web application for tracking and reporting AI safety incidents with
 - [AI Safety Incident Dashboard](#ai-safety-incident-dashboard)
 - [🔗 Live Demo](#-live-demo)
 - [Features](#features)
+- [Device Screenshots](#device-screenshots)
 - [Technologies Used](#technologies-used)
 - [Project Setup](#project-setup)
 - [Installation](#installation)
@@ -61,8 +62,8 @@ A responsive web application for tracking and reporting AI safety incidents with
 ### Mobile Phones
 
 | ![Mobile Phone 1](./screenshots/iPhone1.png) | ![Mobile Phone 2](./screenshots/iPhone2.png) |
-| ![Mobile Phone 3](./screenshots/iPhone3.png) |
-| ------------------------------------------------------ | -------------------------------------------------------- |
+|:--------------------------------------------:|:--------------------------------------------:|
+| ![Mobile Phone 3](./screenshots/iPhone3.png) |                                              |
 
 ### Laptops
 
@@ -70,8 +71,8 @@ A responsive web application for tracking and reporting AI safety incidents with
 
 ### Tablets
 
-| ![Tablet 1](./screenshots/pad1.png)            | ![Tablet 2](./screenshots/pad2.png)              |
-| ----------------------------------------------------- | -------------------------------------------------------- |
+| ![Tablet 1](./screenshots/pad1.png) | ![Tablet 2](./screenshots/pad2.png) |
+|:-----------------------------------:|:-----------------------------------:|
 
 ## Technologies Used
 
