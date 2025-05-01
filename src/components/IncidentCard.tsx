@@ -7,13 +7,17 @@ interface IncidentCardProps {
 }
 
 export default function IncidentCard({ incident }: IncidentCardProps) {
-    const { searchQuery, toggleExpand, deleteIncident } = useIncidents();
+    const { searchQuery, toggleExpand, deleteIncident, showToast } = useIncidents(); // Ensure showToast is destructured
 
     const severityColors = {
         Low: "bg-emerald-900 text-emerald-200 border-emerald-700",
         Medium: "bg-amber-900 text-amber-200 border-amber-700",
         High: "bg-rose-900 text-rose-200 border-rose-700",
     };
+
+    // Check if description contains search query (for the indicator)
+    const hasMatchInDescription = searchQuery &&
+        incident.description.toLowerCase().includes(searchQuery.toLowerCase());
 
     const handleCardClick = () => {
         toggleExpand(incident.id);
@@ -23,19 +27,24 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
         e.stopPropagation();
         if (window.confirm("Are you sure you want to delete this incident?")) {
             deleteIncident(incident.id);
+            showToast("Incident deleted successfully!", false); // Correctly call showToast
         }
     };
 
-    const highlightText = (text: string, query?: string) => {
-        if (!query || !text.toLowerCase().includes(query.toLowerCase())) {
+    // Improved highlight function with regex escaping
+    const highlightText = (text: string) => {
+        if (!searchQuery || !text.toLowerCase().includes(searchQuery.toLowerCase())) {
             return text;
         }
 
-        const parts = text.split(new RegExp(`(${query})`, 'gi'));
+        const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedQuery})`, 'gi');
+        const parts = text.split(regex);
+
         return (
             <>
                 {parts.map((part, i) =>
-                    part.toLowerCase() === query.toLowerCase() ? (
+                    part.toLowerCase() === searchQuery.toLowerCase() ? (
                         <mark key={i} className="bg-yellow-400 text-gray-900">{part}</mark>
                     ) : (
                         part
@@ -50,14 +59,14 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="p-4 sm:p-6 hover:bg-sky-900/50 transition-colors duration-150 cursor-pointer"
+            className="p-4 sm:p-6 hover:bg-[#0a1026] transition-colors duration-150 cursor-pointer"
             onClick={handleCardClick}
         >
             <div className="flex justify-between items-start gap-3">
                 <div className="flex-1 min-w-0">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
                         <h3 className="text-base sm:text-lg font-semibold text-sky-100 truncate">
-                            {searchQuery ? highlightText(incident.title, searchQuery) : incident.title}
+                            {searchQuery ? highlightText(incident.title) : incident.title}
                         </h3>
                         <span className={`mt-1 sm:mt-0 px-2 py-1 text-xs font-medium rounded-md border ${severityColors[incident.severity]} whitespace-nowrap self-start`}>
                             {incident.severity}
@@ -75,6 +84,11 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
                             hour: '2-digit',
                             minute: '2-digit'
                         })}
+                        {hasMatchInDescription && !incident.expanded && (
+                            <span className="ml-2 px-2 py-0.5 bg-yellow-900/50 text-yellow-200 text-xs rounded">
+                                Match in description
+                            </span>
+                        )}
                     </div>
                 </div>
                 <div className="flex gap-2">
@@ -121,7 +135,7 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
                     >
                         <div className="mt-3 pt-3 border-t border-sky-800">
                             <p className="text-sm sm:text-base text-sky-200 whitespace-pre-line">
-                                {searchQuery ? highlightText(incident.description, searchQuery) : incident.description}
+                                {highlightText(incident.description)}
                             </p>
                         </div>
                     </motion.div>

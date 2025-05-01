@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useIncidents } from '../context/IncidentContext';
 import { Severity } from '../types/incident';
 
 interface IncidentFormProps {
@@ -8,12 +7,11 @@ interface IncidentFormProps {
     onCancel?: () => void;
 }
 
-const IncidentForm: React.FC<IncidentFormProps> = ({ onCancel }) => {
+const IncidentForm: React.FC<IncidentFormProps> = ({ onSubmit, onCancel }) => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [severity, setSeverity] = useState<Severity>("Low");
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { addIncident } = useIncidents();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,24 +20,23 @@ const IncidentForm: React.FC<IncidentFormProps> = ({ onCancel }) => {
         setIsSubmitting(true);
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        addIncident({ title, description: desc, severity });
+        onSubmit(title, desc, severity);
         setTitle("");
         setDesc("");
         setSeverity("Low");
         setIsSubmitting(false);
-        onCancel?.();
     };
 
     return (
-        <div className="rounded-xl">
+        <div className="rounded-xl sm:w-[70%] w-full">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className="min-h-[600px]"
+                className="min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] border border-sky-900 rounded-xl overflow-y-auto"
             >
-                <div className="p-4 sm:p-6 bg-gradient-to-r from-sky-600 to-blue-600 rounded-t-xl">
+                <div className="p-4 sm:p-6 bg-gradient-to-r from-sky-800 to-blue-900 rounded-t-xl">
                     <h3 className="text-xl font-semibold text-white flex items-center">
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -96,19 +93,19 @@ const IncidentForm: React.FC<IncidentFormProps> = ({ onCancel }) => {
                     </div>
 
                     <div className="pt-2 flex space-x-3">
-                        {/* <motion.button
+                        <motion.button
                             type="button"
                             onClick={onCancel}
                             whileTap={{ scale: 0.95 }}
                             className="flex-1 py-2 px-4 border border-sky-800 rounded-md shadow-sm text-sm font-medium text-sky-300 bg-[#050816] hover:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all"
                         >
                             Cancel
-                        </motion.button> */}
+                        </motion.button>
                         <motion.button
                             type="submit"
                             disabled={isSubmitting}
                             whileTap={{ scale: 0.95 }}
-                            className={`flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all ${isSubmitting ? 'opacity-70' : ''} cursor-pointer`}
+                            className={`flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-800 hover:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'}`}
                         >
                             {isSubmitting ? (
                                 <span className="flex items-center justify-center">

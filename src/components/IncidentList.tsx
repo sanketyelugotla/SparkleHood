@@ -17,7 +17,7 @@ export default function IncidentList() {
     // Handle search-based expansion/collapse
     useEffect(() => {
         if (searchQuery) {
-            filteredIncidents.forEach(incident => {
+            incidents.forEach(incident => { // Changed to iterate over 'incidents'
                 const matchesSearch =
                     incident.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     incident.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -26,11 +26,11 @@ export default function IncidentList() {
             });
         } else {
             // Collapse all when search is cleared
-            filteredIncidents.forEach(incident => {
+            incidents.forEach(incident => { // Changed to iterate over 'incidents'
                 setExpanded(incident.id, false);
             });
         }
-    }, [searchQuery, filteredIncidents, setExpanded]);
+    }, [searchQuery, setExpanded]);
 
     const totalPages = Math.ceil(filteredIncidents.length / itemsPerPage);
     const paginatedIncidents = filteredIncidents.slice(
@@ -47,7 +47,7 @@ export default function IncidentList() {
     }
 
     return (
-        <div className="bg-[#0a1026] rounded-xl shadow-sm border border-sky-900 overflow-hidden">
+        <div className="rounded-xl shadow-sm border border-sky-900 overflow-hidden">
             <div className="p-4 sm:p-6 border-b border-sky-900 flex justify-between items-center">
                 <h2 className="text-lg sm:text-xl font-semibold text-sky-300 flex items-center">
                     <svg className="w-5 h-5 mr-2 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
