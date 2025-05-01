@@ -7,7 +7,7 @@ interface IncidentCardProps {
 }
 
 export default function IncidentCard({ incident }: IncidentCardProps) {
-    const { searchQuery, setExpanded } = useIncidents();
+    const { searchQuery, toggleExpand, deleteIncident } = useIncidents();
 
     const severityColors = {
         Low: "bg-emerald-900 text-emerald-200 border-emerald-700",
@@ -16,12 +16,14 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
     };
 
     const handleCardClick = () => {
-        setExpanded(incident.id, !incident.expanded);
+        toggleExpand(incident.id);
     };
 
-    const handleDetailsButtonClick = (e: React.MouseEvent) => {
+    const handleDelete = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setExpanded(incident.id, !incident.expanded);
+        if (window.confirm("Are you sure you want to delete this incident?")) {
+            deleteIncident(incident.id);
+        }
     };
 
     const highlightText = (text: string, query?: string) => {
@@ -34,7 +36,7 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
             <>
                 {parts.map((part, i) =>
                     part.toLowerCase() === query.toLowerCase() ? (
-                        <mark key={i} className="bg-blue-200 text-gray-900">{part}</mark>
+                        <mark key={i} className="bg-yellow-400 text-gray-900">{part}</mark>
                     ) : (
                         part
                     )
@@ -48,7 +50,7 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="p-4 sm:p-6 hover:bg-[#0a1026] transition-colors duration-150 cursor-pointer"
+            className="p-4 sm:p-6 hover:bg-sky-900/50 transition-colors duration-150 cursor-pointer"
             onClick={handleCardClick}
         >
             <div className="flex justify-between items-start gap-3">
@@ -75,13 +77,38 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
                         })}
                     </div>
                 </div>
-                <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleDetailsButtonClick}
-                    className="flex-shrink-0 inline-flex items-center px-2 sm:px-3 py-1 border border-sky-600 text-xs sm:text-sm font-medium rounded-md text-sky-100 bg-sky-800 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 cursor-pointer"
-                >
-                    {incident.expanded ? "Hide" : "Details"}
-                </motion.button>
+                <div className="flex gap-2">
+                    <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            toggleExpand(incident.id);
+                        }}
+                        className="flex-shrink-0 inline-flex items-center px-2 sm:px-3 py-1 border border-sky-600 text-xs sm:text-sm font-medium rounded-md text-sky-100 bg-sky-800 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 cursor-pointer"
+                    >
+                        {incident.expanded ? "Hide" : "Details"}
+                    </motion.button>
+                    <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handleDelete}
+                        className="flex-shrink-0 inline-flex items-center px-2 py-1 border border-rose-600 text-xs sm:text-sm font-medium rounded-md text-rose-100 bg-rose-800 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 cursor-pointer"
+                        aria-label="Delete incident"
+                    >
+                        <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                        </svg>
+                    </motion.button>
+                </div>
             </div>
             <AnimatePresence>
                 {incident.expanded && (

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import React, { createContext, useContext, useState, useMemo } from 'react';
 import { Incident, Severity } from '../types/incident';
 import { mockIncidents } from '../data/mockData';
 
@@ -6,6 +6,9 @@ type IncidentContextType = {
     incidents: Incident[];
     filteredIncidents: Incident[];
     addIncident: (incident: Omit<Incident, 'id' | 'reported_at'>) => void;
+    deleteIncident: (id: number) => void;
+    toggleExpand: (id: number) => void;
+    setExpanded: (id: number, expanded: boolean) => void;
     filter: Severity | 'All';
     setFilter: (filter: Severity | 'All') => void;
     sort: 'Newest' | 'Oldest';
@@ -13,29 +16,20 @@ type IncidentContextType = {
     searchQuery: string;
     setSearchQuery: (query: string) => void;
     currentPage: number;
-    setCurrentPage: (page: number) => void;
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     itemsPerPage: number;
-    toggleExpand: (id: number) => void;
-    setExpanded: (id: number, expanded: boolean) => void;
 };
+
 
 const IncidentContext = createContext<IncidentContextType | undefined>(undefined);
 
 export const IncidentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [incidents, setIncidents] = useState<Incident[]>(mockIncidents);
-    const [filter, setFilter] = useState<Severity | 'All'>("All");
+    const [filter, setFilter] = useState<Severity | "All">("All");
     const [sort, setSort] = useState<"Newest" | "Oldest">("Newest");
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
-
-    const toggleExpand = (id: number) => {
-        setIncidents(prev =>
-            prev.map(i =>
-                i.id === id ? { ...i, expanded: !i.expanded } : i
-            )
-        );
-    };
 
     const setExpanded = (id: number, expanded: boolean) => {
         setIncidents(prev =>
@@ -83,11 +77,26 @@ export const IncidentProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setCurrentPage(1);
     };
 
+    const deleteIncident = (id: number) => {
+        setIncidents(prev => prev.filter(incident => incident.id !== id));
+        setCurrentPage(1);
+    };
+
+    const toggleExpand = (id: number) => {
+        setIncidents(prev =>
+            prev.map(i =>
+                i.id === id ? { ...i, expanded: !i.expanded } : i
+            )
+        );
+    };
+
     return (
         <IncidentContext.Provider value={{
             incidents,
             filteredIncidents,
             addIncident,
+            deleteIncident,
+            toggleExpand,
             filter,
             setFilter,
             sort,
@@ -97,7 +106,6 @@ export const IncidentProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             currentPage,
             setCurrentPage,
             itemsPerPage,
-            toggleExpand,
             setExpanded
         }}>
             {children}

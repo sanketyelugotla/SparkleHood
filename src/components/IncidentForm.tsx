@@ -4,7 +4,8 @@ import { useIncidents } from '../context/IncidentContext';
 import { Severity } from '../types/incident';
 
 interface IncidentFormProps {
-    onCancel: () => void;
+    onSubmit: (title: string, description: string, severity: Severity) => void;
+    onCancel?: () => void;
 }
 
 const IncidentForm: React.FC<IncidentFormProps> = ({ onCancel }) => {
@@ -26,7 +27,7 @@ const IncidentForm: React.FC<IncidentFormProps> = ({ onCancel }) => {
         setDesc("");
         setSeverity("Low");
         setIsSubmitting(false);
-        onCancel();
+        onCancel?.();
     };
 
     return (
