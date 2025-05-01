@@ -1,8 +1,8 @@
+import { Severity } from "../types/incident";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CustomSelect } from "./CustomSelect";
 import { useIncidents } from "../context/IncidentContext";
-import { Severity } from "../types/incident";
 
 export default function IncidentFilter() {
     const [isSearchFocused, setIsSearchFocused] = useState(false);

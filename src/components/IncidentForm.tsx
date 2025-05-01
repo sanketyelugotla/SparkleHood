@@ -95,14 +95,14 @@ const IncidentForm: React.FC<IncidentFormProps> = ({ onCancel }) => {
                     </div>
 
                     <div className="pt-2 flex space-x-3">
-                        <motion.button
+                        {/* <motion.button
                             type="button"
                             onClick={onCancel}
                             whileTap={{ scale: 0.95 }}
                             className="flex-1 py-2 px-4 border border-sky-800 rounded-md shadow-sm text-sm font-medium text-sky-300 bg-[#050816] hover:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all"
                         >
                             Cancel
-                        </motion.button>
+                        </motion.button> */}
                         <motion.button
                             type="submit"
                             disabled={isSubmitting}

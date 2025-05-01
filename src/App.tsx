@@ -44,11 +44,24 @@ export default function App() {
 							AI Safety Incident Dashboard
 						</h1>
 						<div className="mt-2 text-sm sm:text-lg text-sky-300 max-w-2xl mx-auto">
-							<p>Track and report AI safety incidents with transparency</p>
+							<p>Track and report AI safety issues. Flag unexpected behaviors, biases, or risks in AI systems you use. Your reports help build safer AI for everyone.</p>
 						</div>
 					</motion.header>
 
 					<StatsCards />
+
+					{/* Form positioned before search */}
+					{showForm && (
+						<motion.div
+							initial={{ opacity: 0, height: 0 }}
+							animate={{ opacity: 1, height: 'auto' }}
+							exit={{ opacity: 0, height: 0 }}
+							transition={{ duration: 0.3 }}
+							className="mb-6"
+						>
+							<IncidentForm onCancel={handleCloseForm} />
+						</motion.div>
+					)}
 
 					<div className="space-y-6">
 						<IncidentFilter />
@@ -69,52 +82,6 @@ export default function App() {
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
 						</svg>
 					</motion.button>
-
-					{/* Form Modal */}
-					<AnimatePresence>
-						{showForm && (
-							<>
-								<motion.div
-									className="fixed inset-0 bg-black/70 z-40"
-									initial={{ opacity: 0 }}
-									animate={{ opacity: 1 }}
-									exit={{ opacity: 0 }}
-									transition={{ duration: 0.3 }}
-								/>
-
-								<div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-									<motion.div
-										className="w-full max-w-md bg-[#050816] rounded-2xl shadow-xl overflow-hidden border border-sky-800"
-										initial={{
-											clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
-											opacity: 0,
-											scale: 0.5
-										}}
-										animate={{
-											clipPath: "circle(150% at 50% 50%)",
-											opacity: 1,
-											scale: 1,
-											transition: {
-												duration: 0.6,
-												ease: [0.22, 1, 0.36, 1]
-											}
-										}}
-										exit={{
-											clipPath: `circle(0% at ${originPosition.left + originPosition.width / 2}px ${originPosition.top + originPosition.height / 2}px)`,
-											opacity: 0,
-											scale: 0.8,
-											transition: {
-												duration: 0.4,
-												ease: [0.22, 1, 0.36, 1]
-											}
-										}}
-									>
-										<IncidentForm onCancel={handleCloseForm} />
-									</motion.div>
-								</div>
-							</>
-						)}
-					</AnimatePresence>
 				</div>
 			</div>
 		</IncidentProvider>

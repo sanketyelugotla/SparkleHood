@@ -57,7 +57,7 @@ export function CustomSelect<T extends string>({
     return (
         <div className={`relative ${className}`} ref={selectRef}>
             {label && (
-                <label htmlFor={id} className="block text-md font-medium text-gray-700 mb-1">
+                <label htmlFor={id} className="block text-sm font-medium text-sky-300 mb-1">
                     {label}
                 </label>
             )}
@@ -65,15 +65,15 @@ export function CustomSelect<T extends string>({
             <button
                 type="button"
                 id={id}
-                className="relative w-full pl-3 pr-10 py-2 text-left border-2 bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 hover:border-indigo-500 cursor-pointer"
+                className={`relative w-full pl-3 pr-10 py-2 text-left border-2 bg-[#050816] rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer ${isOpen ? 'border-sky-500' : 'border-sky-800 hover:border-sky-600'}`}
                 onClick={() => setIsOpen(!isOpen)}
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
             >
-                <span className="block truncate">{selectedLabel}</span>
+                <span className="block truncate text-sky-100">{selectedLabel}</span>
                 <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <motion.svg
-                        className="h-5 w-5 text-gray-400"
+                        className="h-5 w-5 text-sky-400"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -93,26 +93,39 @@ export function CustomSelect<T extends string>({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute z-50 mt-1 w-full bg-white shadow-lg rounded-md py-1 border border-gray-200"
+                        className="absolute z-50 mt-1 w-full bg-[#050816] shadow-lg rounded-md py-1 border border-sky-700"
                         role="listbox"
                         style={{ transformOrigin: "top center" }}
                     >
                         {Children.map(children, (child) => {
                             if (isOptionElement(child)) {
+                                const getSeverityDot = (value: string) => {
+                                    switch (value) {
+                                        case 'Low': return <span className="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>;
+                                        case 'Medium': return <span className="w-2 h-2 rounded-full bg-amber-500 mr-2"></span>;
+                                        case 'High': return <span className="w-2 h-2 rounded-full bg-rose-500 mr-2"></span>;
+                                        case 'Newest': return <span className="mr-2">↓</span>;
+                                        case 'Oldest': return <span className="mr-2">↑</span>;
+                                        default: return null;
+                                    }
+                                };
+
                                 return (
                                     <li
                                         key={child.props.value}
-                                        className={`text-gray-900 cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-indigo-50 ${value === child.props.value ? "bg-indigo-100" : ""
-                                            }`}
+                                        className={`text-sky-100 cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-sky-900 ${value === child.props.value ? 'bg-sky-800' : ''}`}
                                         role="option"
                                         onClick={() => {
                                             onChange(child.props.value as T);
                                             setIsOpen(false);
                                         }}
                                     >
-                                        <span className="block truncate">{child.props.children}</span>
+                                        <div className="flex items-center">
+                                            {getSeverityDot(child.props.value)}
+                                            <span className="block truncate">{child.props.children}</span>
+                                        </div>
                                         {value === child.props.value && (
-                                            <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
+                                            <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-sky-400">
                                                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                                 </svg>
@@ -135,6 +148,6 @@ export function CustomSelect<T extends string>({
             >
                 {children}
             </select>
-        </div >
+        </div>
     );
 }

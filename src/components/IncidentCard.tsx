@@ -4,11 +4,10 @@ import { useIncidents } from "../context/IncidentContext";
 
 interface IncidentCardProps {
     incident: Incident;
-    searchQuery?: string;
 }
 
-export default function IncidentCard({ incident, searchQuery }: IncidentCardProps) {
-    const { toggleExpand } = useIncidents();
+export default function IncidentCard({ incident }: IncidentCardProps) {
+    const { searchQuery, setExpanded } = useIncidents();
 
     const severityColors = {
         Low: "bg-emerald-900 text-emerald-200 border-emerald-700",
@@ -17,12 +16,12 @@ export default function IncidentCard({ incident, searchQuery }: IncidentCardProp
     };
 
     const handleCardClick = () => {
-        toggleExpand(incident.id);
+        setExpanded(incident.id, !incident.expanded);
     };
 
     const handleDetailsButtonClick = (e: React.MouseEvent) => {
         e.stopPropagation();
-        toggleExpand(incident.id);
+        setExpanded(incident.id, !incident.expanded);
     };
 
     const highlightText = (text: string, query?: string) => {
@@ -35,7 +34,7 @@ export default function IncidentCard({ incident, searchQuery }: IncidentCardProp
             <>
                 {parts.map((part, i) =>
                     part.toLowerCase() === query.toLowerCase() ? (
-                        <mark key={i} className="bg-yellow-400 text-gray-900">{part}</mark>
+                        <mark key={i} className="bg-blue-200 text-gray-900">{part}</mark>
                     ) : (
                         part
                     )
@@ -49,7 +48,7 @@ export default function IncidentCard({ incident, searchQuery }: IncidentCardProp
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="p-4 sm:p-6 hover:bg-sky-900/50 transition-colors duration-150 border-b border-sky-800 last:border-b-0 cursor-pointer"
+            className="p-4 sm:p-6 hover:bg-[#0a1026] transition-colors duration-150 cursor-pointer"
             onClick={handleCardClick}
         >
             <div className="flex justify-between items-start gap-3">

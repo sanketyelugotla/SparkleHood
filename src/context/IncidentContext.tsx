@@ -16,6 +16,7 @@ type IncidentContextType = {
     setCurrentPage: (page: number) => void;
     itemsPerPage: number;
     toggleExpand: (id: number) => void;
+    setExpanded: (id: number, expanded: boolean) => void;
 };
 
 const IncidentContext = createContext<IncidentContextType | undefined>(undefined);
@@ -29,9 +30,17 @@ export const IncidentProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const itemsPerPage = 5;
 
     const toggleExpand = (id: number) => {
-        setIncidents((prev) =>
-            prev.map((i) =>
+        setIncidents(prev =>
+            prev.map(i =>
                 i.id === id ? { ...i, expanded: !i.expanded } : i
+            )
+        );
+    };
+
+    const setExpanded = (id: number, expanded: boolean) => {
+        setIncidents(prev =>
+            prev.map(i =>
+                i.id === id ? { ...i, expanded } : i
             )
         );
     };
@@ -88,7 +97,8 @@ export const IncidentProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             currentPage,
             setCurrentPage,
             itemsPerPage,
-            toggleExpand
+            toggleExpand,
+            setExpanded
         }}>
             {children}
         </IncidentContext.Provider>
