@@ -1,23 +1,18 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { CustomSelect } from "./CustomSelect";
-import { Severity } from "../types/incident";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useIncidents } from '../context/IncidentContext';
+import { Severity } from '../types/incident';
 
 interface IncidentFormProps {
-    onSubmit: (title: string, description: string, severity: Severity) => void;
-    onCancel?: () => void;
-    showCloseButton?: boolean;
+    onCancel: () => void;
 }
 
-export default function IncidentForm({
-    onSubmit,
-    onCancel,
-    // showCloseButton = true
-}: IncidentFormProps) {
+const IncidentForm: React.FC<IncidentFormProps> = ({ onCancel }) => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [severity, setSeverity] = useState<Severity>("Low");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { addIncident } = useIncidents();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -26,35 +21,24 @@ export default function IncidentForm({
         setIsSubmitting(true);
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        onSubmit(title, desc, severity);
+        addIncident({ title, description: desc, severity });
         setTitle("");
         setDesc("");
         setSeverity("Low");
         setIsSubmitting(false);
+        onCancel();
     };
 
     return (
-        <div className={`rounded-xl ${onCancel ? 'h-full' : ''}`}>
+        <div className="rounded-xl">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className={`bg-white ${onCancel ? 'h-full' : 'rounded-xl shadow-sm border border-gray-200 relative'} min-h-[600px]`}  // <-- ADD min-h
+                className="min-h-[600px]"
             >
-                {/* {showCloseButton && onCancel && (
-                    <motion.button
-                        onClick={onCancel}
-                        whileTap={{ scale: 0.9 }}
-                        className="lg:hidden absolute top-4 right-4 p-1 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors z-10"
-                    >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </motion.button>
-                )} */}
-
-                <div className="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-t-xl">
+                <div className="p-4 sm:p-6 bg-gradient-to-r from-sky-600 to-blue-600 rounded-t-xl">
                     <h3 className="text-xl font-semibold text-white flex items-center">
                         <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -63,66 +47,67 @@ export default function IncidentForm({
                     </h3>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 flex-grow flex flex-col">                    <div>
-                    <label htmlFor="title" className="block text-md font-medium text-gray-700 mb-1">
-                        Title*
-                    </label>
-                    <input
-                        id="title"
-                        type="text"
-                        placeholder="Brief incident title"
-                        className="w-full px-3 py-2 rounded-md border-2 border-gray-300 hover:border-indigo-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-700 transition-all"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
+                <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 flex-grow flex flex-col">
+                    <div>
+                        <label htmlFor="title" className="block text-sm font-medium text-sky-300 mb-1">
+                            Title*
+                        </label>
+                        <input
+                            id="title"
+                            type="text"
+                            placeholder="Brief incident title"
+                            className="w-full px-3 py-2 rounded-md bg-[#050816] border border-sky-800 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                    </div>
 
                     <div>
-                        <label htmlFor="description" className="block text-md font-medium text-gray-700 mb-1">
+                        <label htmlFor="description" className="block text-sm font-medium text-sky-300 mb-1">
                             Description*
                         </label>
                         <textarea
                             id="description"
                             placeholder="Detailed description of what happened..."
                             rows={6}
-                            className="w-full px-3 py-2 rounded-md border-2 border-gray-300 hover:border-indigo-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-700 transition-all"
+                            className="w-full px-3 py-2 rounded-md bg-[#050816] border border-sky-800 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
                             required
                         />
-
                     </div>
 
                     <div>
-                        <CustomSelect<Severity>
+                        <label htmlFor="severity" className="block text-sm font-medium text-sky-300 mb-1">
+                            Severity Level
+                        </label>
+                        <select
                             id="severity"
                             value={severity}
-                            onChange={setSeverity}
-                            label="Severity Level"
+                            onChange={(e) => setSeverity(e.target.value as Severity)}
+                            className="w-full px-3 py-2 rounded-md bg-[#050816] border border-sky-800 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
                         >
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
-                        </CustomSelect>
+                        </select>
                     </div>
 
                     <div className="pt-2 flex space-x-3">
-                        {onCancel && (
-                            <motion.button
-                                type="button"
-                                onClick={onCancel}
-                                whileTap={{ scale: 0.95 }}
-                                className="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all"
-                            >
-                                Cancel
-                            </motion.button>
-                        )}
+                        <motion.button
+                            type="button"
+                            onClick={onCancel}
+                            whileTap={{ scale: 0.95 }}
+                            className="flex-1 py-2 px-4 border border-sky-800 rounded-md shadow-sm text-sm font-medium text-sky-300 bg-[#050816] hover:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all"
+                        >
+                            Cancel
+                        </motion.button>
                         <motion.button
                             type="submit"
                             disabled={isSubmitting}
                             whileTap={{ scale: 0.95 }}
-                            className={`flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all ${isSubmitting ? 'opacity-70' : ''} cursor-pointer`}
+                            className={`flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-all ${isSubmitting ? 'opacity-70' : ''} cursor-pointer`}
                         >
                             {isSubmitting ? (
                                 <span className="flex items-center justify-center">
@@ -141,4 +126,6 @@ export default function IncidentForm({
             </motion.div>
         </div>
     );
-} 
+};
+
+export default IncidentForm;
