@@ -22,30 +22,29 @@ A responsive web application for tracking and reporting AI safety incidents with
 ## Features
 
 - 🚨 **Incident Management**
-
   - **Report new AI safety incidents** – Easily submit reports.
   - **View and expand incident details** – Detailed view for each incident.
   - **Sort by newest/oldest reports** – Quickly sort incidents based on their report date.
 
-- 🔍 **Advanced Filtering**
+- 📊 **Data Visualization**
+  - **Weekly trend analysis** – Interactive line chart showing incident frequency.
+  - **Severity breakdown** – Separate trend lines for Low/Medium/High severity incidents.
+  - **Hover tooltips** – See exact incident counts for any week.
+  - **Color-coded data** – Matches severity colors from the dashboard.
 
+- 🔍 **Advanced Filtering**
   - **Filter by severity level** (Low, Medium, High) – Quickly narrow down incidents by severity.
   - **Search by title or description** – Search functionality to find specific incidents, with **highlighted search results** for better visibility.
 
 - 📱 **Responsive Design**
-
   - **Mobile-friendly interface** – Full functionality on mobile devices.
   - **Desktop-optimized layout** – Tailored design for desktop use.
+  - **Adaptive charts** – Visualizations resize for any screen.
 
 - ✨ **Interactive UI**
-
   - **Smooth animations with Framer Motion** – Enjoy seamless transitions and animations.
-  - **Floating action button on mobile** – Easy access to report new incidents on mobile.
+  - **Floating action button** – Easy access to report new incidents.
   - **Click-outside to close functionality** – Close modals or forms by clicking outside.
-
-- 📊 **Data Visualization**
-  - **Clear incident severity indicators** – Visual cues for severity (Low, Medium, High).
-  - **Organized list view** – Clean, organized incident list for better readability.
 
 ---
 
@@ -204,6 +203,21 @@ Before you begin, ensure you have the following installed for the project
 
 - Add new filter categories (status, date ranges)
 - Implement multi-select capabilities
+
+### Trend Analysis
+
+#### Weekly Incident Trends
+
+- Visualize incident patterns over time with the interactive line chart
+- Three distinct lines show Low (green), Medium (yellow), and High (red) severity trends
+- Hover over any point to see exact incident counts for that week
+- X-axis shows weeks in "Week of [date]" format for easy reference
+
+#### Chart Controls
+
+- Automatic scaling to show all available data
+- Responsive design works on all device sizes
+- Clean dark theme matches dashboard aesthetics
 
 ---
 
