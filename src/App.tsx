@@ -7,6 +7,7 @@ import IncidentForm from "./components/IncidentForm";
 import Toast from "./components/Toast";
 import { Severity } from "./types/incident";
 import { useIncidents } from "./context/IncidentContext";
+import IncidentTrendChart from "./components/IncidentTrendChart";
 
 export default function App() {
 	const [isFormOpen, setIsFormOpen] = useState(false);
@@ -69,7 +70,15 @@ export default function App() {
 					</div>
 				</motion.header>
 
-				<StatsCards />
+				<div className="max-w-6xl mx-auto">
+
+					<StatsCards /> {/* Shows the severity summary cards */}
+
+					<IncidentTrendChart /> {/* Shows the weekly trends */}
+
+					{/* <IncidentFilter /> */}
+					{/* <IncidentList /> */}
+				</div>
 
 				<AnimatePresence>
 					{isFormOpen && (
@@ -79,7 +88,7 @@ export default function App() {
 							animate={{ opacity: 1, height: 'auto' }}
 							exit={{ opacity: 0, height: 0 }}
 							transition={{ duration: 0.3 }}
-							className="mb-6 overflow-hidden"
+							className="mb-6 overflow-hidden flex justify-center"
 						>
 							<IncidentForm onSubmit={handleFormSubmit} onCancel={() => setIsFormOpen(false)} />
 						</motion.div>

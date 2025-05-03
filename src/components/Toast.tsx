@@ -8,7 +8,7 @@ interface ToastProps {
     success?: boolean; // Add an optional success prop, default to true
 }
 
-const Toast: React.FC<ToastProps> = ({ message, onClose, success = true }) => {
+const Toast: React.FC<ToastProps> = ({ message, success = true }) => {
     const bgColor = success ? "bg-[#111a3a]" : "bg-rose-800"; // Set background color based on success
 
     return (

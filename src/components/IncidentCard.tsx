@@ -45,7 +45,7 @@ export default function IncidentCard({ incident }: IncidentCardProps) {
             <>
                 {parts.map((part, i) =>
                     part.toLowerCase() === searchQuery.toLowerCase() ? (
-                        <mark key={i} className="bg-yellow-400 text-gray-900">{part}</mark>
+                        <mark key={i} className="bg-blue-400 text-gray-900">{part}</mark>
                     ) : (
                         part
                     )
