@@ -133,6 +133,8 @@ Before you begin, ensure you have the following installed for the project
   │ │ ├── IncidentList.tsx # For displaying incidents
   │ │ ├── IncidentCard.tsx # Card for individual incident
   │ │ └── CustomSelect.tsx # Custom dropdown component
+  │ │ └── Toast.tsx # Custom toast component
+  │ │ └── Footer.tsx # Footer component
   │ ├── data/ # Mock data
   │ │ └── mockData.ts # Mock data of incidents
   │ ├── types/ # TypeScript types

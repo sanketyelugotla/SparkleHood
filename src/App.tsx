@@ -8,6 +8,7 @@ import Toast from "./components/Toast";
 import { Severity } from "./types/incident";
 import { useIncidents } from "./context/IncidentContext";
 import IncidentTrendChart from "./components/IncidentTrendChart";
+import Footer from "./components/Footer";
 
 export default function App() {
 	const [isFormOpen, setIsFormOpen] = useState(false);
@@ -119,6 +120,7 @@ export default function App() {
 					</motion.svg>
 				</motion.button>
 			</div>
+			<Footer />
 		</div>
 	);
 }
