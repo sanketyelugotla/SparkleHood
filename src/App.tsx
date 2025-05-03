@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import IncidentFilter from "./components/IncidentFilter";
 import IncidentList from "./components/IncidentList";
@@ -76,8 +76,6 @@ export default function App() {
 
 					<IncidentTrendChart /> {/* Shows the weekly trends */}
 
-					{/* <IncidentFilter /> */}
-					{/* <IncidentList /> */}
 				</div>
 
 				<AnimatePresence>
