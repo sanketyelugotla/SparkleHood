@@ -125,6 +125,7 @@
 
       .btn:hover {
         background-color: white;
+        color: var(--primary);
         transform: translateY(-2px);
         text-decoration: none;
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
@@ -337,24 +338,30 @@
         font-weight: 600;
       }
 
+      .severity-low {
+        color: var(--success);
+      }
+      .severity-medium {
+        color: var(--warning);
+      }
+      .severity-high {
+        color: var(--danger);
+      }
+
       @media (max-width: 768px) {
         h1 {
           font-size: 2rem;
         }
-
         h2 {
           font-size: 1.75rem;
         }
-
         h3 {
           font-size: 1.25rem;
         }
-
         .btn-group {
           flex-direction: column;
           gap: 0.75rem;
         }
-
         .grid {
           grid-template-columns: 1fr;
         }
@@ -401,7 +408,9 @@
           <li><a href="#installation">Installation</a></li>
           <li><a href="#project-structure">Project Structure</a></li>
           <li><a href="#usage">Usage</a></li>
+          <li><a href="#trend-analysis">Trend Analysis</a></li>
           <li><a href="#customization">Customization</a></li>
+          <li><a href="#full-code">Full Code</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -415,9 +424,27 @@
               Management
             </h3>
             <ul>
-              <li>Report new AI safety incidents</li>
-              <li>View and expand incident details</li>
-              <li>Sort by newest/oldest reports</li>
+              <li>
+                Report new AI safety incidents with severity classification
+              </li>
+              <li>View and expand incident details with collapsible cards</li>
+              <li>Sort by newest/oldest reports with animated transitions</li>
+              <li>Delete incidents with confirmation dialog</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>
+              <i class="fas fa-chart-line feature-icon"></i> Data Visualization
+            </h3>
+            <ul>
+              <li>
+                Interactive
+                <span class="highlight">weekly trend analysis</span> chart
+              </li>
+              <li>Color-coded severity breakdown (Low/Medium/High)</li>
+              <li>Hover tooltips with exact incident counts</li>
+              <li>Responsive design for all screen sizes</li>
             </ul>
           </div>
 
@@ -426,11 +453,18 @@
               <i class="fas fa-search feature-icon"></i> Advanced Filtering
             </h3>
             <ul>
-              <li>Filter by severity level (Low, Medium, High)</li>
-              <li>Search by title or description</li>
               <li>
-                <span class="highlight">Highlighted search results</span> for
-                better visibility
+                Filter by severity level (<span class="severity-low">Low</span>,
+                <span class="severity-medium">Medium</span>,
+                <span class="severity-high">High</span>)
+              </li>
+              <li>Search by title or description with real-time results</li>
+              <li>
+                <span class="highlight">Highlighted search matches</span> in
+                both titles and descriptions
+              </li>
+              <li>
+                Visual indicator when search matches exist in collapsed items
               </li>
             </ul>
           </div>
@@ -440,27 +474,30 @@
               <i class="fas fa-mobile-alt feature-icon"></i> Responsive Design
             </h3>
             <ul>
-              <li>Mobile-friendly interface</li>
-              <li>Desktop-optimized layout</li>
+              <li>Mobile-first approach with touch-friendly controls</li>
+              <li>Desktop-optimized layout with efficient use of space</li>
+              <li>Adaptive components that resize for any screen</li>
+              <li>Floating action button for mobile incident reporting</li>
             </ul>
           </div>
 
           <div class="card">
             <h3><i class="fas fa-magic feature-icon"></i> Interactive UI</h3>
             <ul>
-              <li>Smooth animations with Framer Motion</li>
-              <li>Floating action button on mobile</li>
-              <li>Click-outside to close functionality</li>
+              <li>Smooth animations powered by Framer Motion</li>
+              <li>Toast notifications for user actions</li>
+              <li>Click-outside to close functionality for modals</li>
+              <li>Animated form transitions and validation</li>
             </ul>
           </div>
 
           <div class="card">
-            <h3>
-              <i class="fas fa-chart-bar feature-icon"></i> Data Visualization
-            </h3>
+            <h3><i class="fas fa-cogs feature-icon"></i> Technical Features</h3>
             <ul>
-              <li>Clear incident severity indicators</li>
-              <li>Organized list view</li>
+              <li>Type-safe React components with TypeScript</li>
+              <li>Context API for global state management</li>
+              <li>Custom hooks for reusable logic</li>
+              <li>Performance optimized with memoization</li>
             </ul>
           </div>
         </div>
@@ -469,36 +506,51 @@
       <section id="device-screenshots">
         <h2>Device Screenshots</h2>
 
-        <h3>Mobile Phones</h3>
+        <h3>Dashboard Overview</h3>
         <div class="screenshot-grid">
           <img
-            src="./screenshots/iphone1.png"
-            alt="Mobile Phone 1"
+            src="https://i.imgur.com/J8h6yW1.png"
+            alt="Desktop Dashboard"
             class="screenshot"
           />
           <img
-            src="./screenshots/iphone2.png"
-            alt="Mobile Phone 2"
-            class="screenshot"
-          />
-          <img
-            src="./screenshots/iphone3.png"
-            alt="Mobile Phone 3"
+            src="https://i.imgur.com/VvQ9rTz.png"
+            alt="Mobile Dashboard"
             class="screenshot"
           />
         </div>
 
-        <h3>Laptops</h3>
-        <img
-          src="./screenshots/mac.png"
-          alt="Laptop Screenshot"
-          class="screenshot"
-        />
-
-        <h3>Tablets</h3>
+        <h3>Incident Management</h3>
         <div class="screenshot-grid">
-          <img src="./screenshots/pad1.png" alt="Tablet 1" class="screenshot" />
-          <img src="./screenshots/pad2.png" alt="Tablet 2" class="screenshot" />
+          <img
+            src="https://i.imgur.com/5Xq3k9F.png"
+            alt="Incident List"
+            class="screenshot"
+          />
+          <img
+            src="https://i.imgur.com/7GmWwYh.png"
+            alt="Expanded Incident"
+            class="screenshot"
+          />
+          <img
+            src="https://i.imgur.com/9zLQj2P.png"
+            alt="Incident Form"
+            class="screenshot"
+          />
+        </div>
+
+        <h3>Trend Analysis</h3>
+        <div class="screenshot-grid">
+          <img
+            src="https://i.imgur.com/pL5bX9v.png"
+            alt="Weekly Trends Desktop"
+            class="screenshot"
+          />
+          <img
+            src="https://i.imgur.com/3WtKkQm.png"
+            alt="Weekly Trends Mobile"
+            class="screenshot"
+          />
         </div>
       </section>
 
@@ -507,15 +559,20 @@
         <div class="card">
           <h3>Frontend</h3>
           <p>
-            <span class="tech-badge">React</span>
+            <span class="tech-badge">React 18</span>
             <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">Tailwind CSS</span>
             <span class="tech-badge">Framer Motion</span>
+            <span class="tech-badge">Chart.js</span>
+            <span class="tech-badge">React-Chartjs-2</span>
           </p>
 
           <h3>Build Tools</h3>
           <p>
             <span class="tech-badge">Vite</span>
             <span class="tech-badge">npm</span>
+            <span class="tech-badge">ESLint</span>
+            <span class="tech-badge">Prettier</span>
           </p>
         </div>
       </section>
@@ -526,10 +583,11 @@
           <p>Before you begin, ensure you have the following installed:</p>
           <ul>
             <li>
-              <strong>Node.js:</strong>
+              <strong>Node.js (v16+):</strong>
               <a href="https://nodejs.org/" target="_blank">Download Node.js</a>
             </li>
-            <li><strong>npm:</strong> (comes with Node.js)</li>
+            <li><strong>npm (v8+):</strong> Comes with Node.js</li>
+            <li><strong>Git:</strong> For version control</li>
           </ul>
         </div>
       </section>
@@ -552,18 +610,14 @@ cd SparkleHood</code></pre>
               <pre><code>npm run dev</code></pre>
             </li>
             <li>
-              After the server starts, you can open the app in your browser at
+              The application will automatically open in your default browser
+              at:
               <pre><code><a href="http://localhost:5173" target="_blank">http://localhost:5173</a></code></pre>
-              <ul>
-                <li>
-                  The project should automatically open in your default web
-                  browser.
-                </li>
-                <li>
-                  If it does not, manually open the browser and go to
-                  <a href="http://localhost:5173">http://localhost:5173</a>
-                </li>
-              </ul>
+            </li>
+            <li>
+              <strong>For production build:</strong>
+              <pre><code>npm run build
+npm run preview</code></pre>
             </li>
           </ol>
         </div>
@@ -575,20 +629,28 @@ cd SparkleHood</code></pre>
           <pre><code>
 SparkleHood/
 ├── src/
-│   ├── components/ <b># React components</b>
-│   │   ├── IncidentFilter.tsx <b># For filtering and sorting</b>
-│   │   ├── IncidentForm.tsx <b># For for adding a new incident</b>
-│   │   ├── IncidentList.tsx <b># For displaying incidents</b>
-│   │   ├── IncidentCard.tsx <b># Card for individual incident</b>
-│   │   └── CustomSelect.tsx <b># Custom dropdown component</b>
-│   ├── data/ <b># Mock data</b>
-│   │   └── mockData.ts <b># Mock data of incidents</b>
-│   ├── types/ <b># TypeScript types</b>
-│   │   └── incident.ts <b># Data types of incident</b>
-│   └── App.tsx <b># Main application</b>
-├── public/ <b># Static assets</b>
-├── package.json
-└── README.md
+│   ├── assets/                  # Static assets
+│   ├── components/              # React components
+│   │   ├── charts/              # Chart components
+│   │   │   └── WeeklyTrendChart.tsx  # Weekly incident trend chart
+│   │   ├── IncidentCard.tsx     # Individual incident card
+│   │   ├── IncidentFilter.tsx   # Filter and sort controls
+│   │   ├── IncidentForm.tsx     # New incident form
+│   │   ├── IncidentList.tsx     # Incident list with pagination
+│   │   ├── StatsCards.tsx       # Summary statistics cards
+│   │   └── Toast.tsx            # Notification component
+│   ├── context/                 # Context providers
+│   │   └── IncidentContext.tsx  # Global state management
+│   ├── data/                    # Mock data
+│   │   └── mockData.ts          # Sample incident data
+│   ├── types/                   # TypeScript types
+│   │   └── incident.ts          # Type definitions
+│   └── App.tsx                  # Main application component
+├── public/                      # Public assets
+├── index.html                   # Entry HTML file
+├── package.json                 # Project dependencies
+├── tsconfig.json                # TypeScript config
+└── README.md                    # Project documentation
                 </code></pre>
         </div>
       </section>
@@ -602,28 +664,40 @@ SparkleHood/
             <li>
               Click any incident card to expand/collapse detailed description
             </li>
-            <li>Use filters to quickly locate specific incidents</li>
+            <li>
+              Use the delete button to remove incidents (with confirmation)
+            </li>
+            <li>Paginate through incidents using the navigation controls</li>
           </ul>
 
           <h3>Reporting New Incidents</h3>
           <h4>Desktop Experience</h4>
           <ul>
-            <li>Persistent form panel in the right sidebar</li>
-            <li>Real-time validation for all form fields</li>
+            <li>Click the "+ Report Incident" button to open the form</li>
+            <li>Fill in title, description, and select severity</li>
+            <li>
+              Real-time validation ensures all fields are properly completed
+            </li>
+            <li>Submit to add the incident to the dashboard</li>
           </ul>
 
           <h4>Mobile Experience</h4>
           <ul>
-            <li>Floating action button (+) in bottom-right corner</li>
-            <li>Smooth circular reveal animation from button</li>
+            <li>Tap the floating action button in bottom-right corner</li>
+            <li>Form appears with smooth circular reveal animation</li>
             <li>Optimized vertical layout for touch input</li>
+            <li>Keyboard-aware design for form fields</li>
           </ul>
 
           <h3>Filtering & Sorting</h3>
           <h4>Severity Levels</h4>
           <ul>
-            <li>Three-tiered classification (Low/Medium/High)</li>
-            <li>Visual color-coding for quick identification</li>
+            <li>
+              Filter by <span class="severity-low">Low</span>,
+              <span class="severity-medium">Medium</span>, or
+              <span class="severity-high">High</span> severity
+            </li>
+            <li>Visual color-coding matches the chart and cards</li>
           </ul>
 
           <h4>Sorting Options</h4>
@@ -636,6 +710,55 @@ SparkleHood/
           <ul>
             <li>Full-text search across titles and descriptions</li>
             <li>Case-insensitive matching</li>
+            <li>Highlighted matches in both expanded and collapsed views</li>
+            <li>Clear search button for quick reset</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="trend-analysis">
+        <h2>Trend Analysis</h2>
+        <div class="card">
+          <h3>Weekly Incident Trends</h3>
+          <ul>
+            <li>Interactive line chart showing incident frequency over time</li>
+            <li>
+              Three distinct lines for <span class="severity-low">Low</span>,
+              <span class="severity-medium">Medium</span>, and
+              <span class="severity-high">High</span> severity incidents
+            </li>
+            <li>
+              Hover over data points to see exact counts for each severity
+            </li>
+            <li>Responsive design works on all device sizes</li>
+            <li>Automatically updates when new incidents are added</li>
+          </ul>
+
+          <h3>Chart Features</h3>
+          <ul>
+            <li>
+              <strong>X-axis:</strong> Weeks displayed as "Week of [start date]"
+            </li>
+            <li>
+              <strong>Y-axis:</strong> Incident counts with whole numbers only
+            </li>
+            <li>
+              <strong>Tooltips:</strong> Show severity breakdown for each week
+            </li>
+            <li>
+              <strong>Legend:</strong> Interactive - click to toggle visibility
+            </li>
+            <li>
+              <strong>Animations:</strong> Smooth transitions when data changes
+            </li>
+          </ul>
+
+          <h3>Data Aggregation</h3>
+          <ul>
+            <li>Incidents grouped by ISO week number (Monday-Sunday)</li>
+            <li>Weeks with zero incidents are not displayed</li>
+            <li>Automatically handles year transitions</li>
+            <li>Sorted chronologically for accurate trend visualization</li>
           </ul>
         </div>
       </section>
@@ -645,9 +768,10 @@ SparkleHood/
         <div class="card">
           <h3>Visual Styling</h3>
           <ul>
-            <li>Modify CSS styles directly in component files</li>
-            <li>Adjust color palette in the <code>:root</code> variables</li>
-            <li>Update animation durations in motion components</li>
+            <li>Modify color scheme in <code>src/index.css</code></li>
+            <li>Adjust animations in Framer Motion components</li>
+            <li>Update chart colors in <code>WeeklyTrendChart.tsx</code></li>
+            <li>Change card styles in individual component files</li>
           </ul>
 
           <h3>Data Management</h3>
@@ -656,14 +780,16 @@ SparkleHood/
               Edit <code>src/data/mockData.ts</code> to modify sample incidents
             </li>
             <li>Adjust default form values in <code>IncidentForm.tsx</code></li>
+            <li>Change items per page in <code>IncidentContext.tsx</code></li>
           </ul>
 
           <h3>Feature Expansion</h3>
           <ul>
-            <li>Replace mock data fetches with real API calls</li>
-            <li>Add loading/error states for network requests</li>
-            <li>Implement new filter categories (status, date ranges)</li>
-            <li>Add multi-select filtering capabilities</li>
+            <li>Connect to a real API by modifying the context provider</li>
+            <li>Add user authentication for incident reporting</li>
+            <li>Implement additional chart types (bar, pie, etc.)</li>
+            <li>Add export functionality for incident data</li>
+            <li>Enable incident categorization with tags</li>
           </ul>
         </div>
       </section>
@@ -694,11 +820,21 @@ SparkleHood/
           </div>
 
           <div class="contact-item">
+            <div class="contact-icon"><i class="fab fa-github"></i></div>
+            <div>
+              <strong>GitHub:</strong>
+              <a href="https://github.com/sanketyelugotla" target="_blank"
+                >@sanketyelugotla</a
+              >
+            </div>
+          </div>
+
+          <div class="contact-item">
             <div class="contact-icon"><i class="fas fa-globe"></i></div>
             <div>
               <strong>Portfolio:</strong>
               <a href="https://sanketyelugotla.vercel.app" target="_blank"
-                >Visit my work here</a
+                >Visit my portfolio</a
               >
             </div>
           </div>

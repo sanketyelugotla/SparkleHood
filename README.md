@@ -22,21 +22,25 @@ A responsive web application for tracking and reporting AI safety incidents with
 ## Features
 
 - 🚨 **Incident Management**
+
   - **Report new AI safety incidents** – Easily submit reports.
   - **View and expand incident details** – Detailed view for each incident.
   - **Sort by newest/oldest reports** – Quickly sort incidents based on their report date.
 
 - 📊 **Data Visualization**
+
   - **Weekly trend analysis** – Interactive line chart showing incident frequency.
   - **Severity breakdown** – Separate trend lines for Low/Medium/High severity incidents.
   - **Hover tooltips** – See exact incident counts for any week.
   - **Color-coded data** – Matches severity colors from the dashboard.
 
 - 🔍 **Advanced Filtering**
+
   - **Filter by severity level** (Low, Medium, High) – Quickly narrow down incidents by severity.
   - **Search by title or description** – Search functionality to find specific incidents, with **highlighted search results** for better visibility.
 
 - 📱 **Responsive Design**
+
   - **Mobile-friendly interface** – Full functionality on mobile devices.
   - **Desktop-optimized layout** – Tailored design for desktop use.
   - **Adaptive charts** – Visualizations resize for any screen.
@@ -53,17 +57,17 @@ A responsive web application for tracking and reporting AI safety incidents with
 ### Mobile Phones
 
 | ![Mobile Phone 1](./screenshots/iphone11.png) | ![Mobile Phone 2](./screenshots/iphone12.png) | ![Mobile Phone 3](./screenshots/iphone13.png) | ![Mobile Phone 3](./screenshots/iphone4.png) |
-| :------------------------------------------: | :------------------------------------------: | :------------------------------------------: | :------------------------------------------: |
+| :-------------------------------------------: | :-------------------------------------------: | :-------------------------------------------: | :------------------------------------------: |
 
 ### Laptops
 
 | ![Mobile Phone 1](./screenshots/mac1.png) | ![Mobile Phone 2](./screenshots/mac1.png) | ![Mobile Phone 3](./screenshots/mac1.png) |
-| :------------------------------------------: | :------------------------------------------: | :------------------------------------------: |
+| :---------------------------------------: | :---------------------------------------: | :---------------------------------------: |
 
 ### Tablets
 
 | ![Mobile Phone 1](./screenshots/tab1.png) | ![Mobile Phone 2](./screenshots/tab2.png) | ![Mobile Phone 3](./screenshots/tab3.png) |
-| :------------------------------------------: | :------------------------------------------: | :------------------------------------------: |
+| :---------------------------------------: | :---------------------------------------: | :---------------------------------------: |
 
 ---
 
@@ -123,6 +127,7 @@ Before you begin, ensure you have the following installed for the project
   SparkleHood/
   ├── src/
   │ ├── components/ # React components
+  │ │ ├── IncidentTrendChart.tsx # For weekly trend chart
   │ │ ├── IncidentFilter.tsx # For filtering and sorting
   │ │ ├── IncidentForm.tsx # For for adding a new incident
   │ │ ├── IncidentList.tsx # For displaying incidents
